@@ -12,22 +12,17 @@
     --accent-yellow: #ffde16;
     --accent-orange: #f79120;
   }
-<<<<<<< Updated upstream
   body {
     color: var(--foreground);
     background: var(--background);
     font-family: Roboto, Arial, sans-serif;
   }
-=======
-
->>>>>>> Stashed changes
   /* @media (prefers-color-scheme: dark) {
     :root {
       --background: #ff0505;
       --foreground: #ededed;
     }
   } */
-<<<<<<< Updated upstream
 }
 
 @layer base {
@@ -73,11 +68,9 @@
 
 html {
   scroll-behavior: smooth;
-=======
   body {
     color: var(--foreground);
     background: var(--background);
     font-family: Roboto, Arial, sans-serif;
   }
->>>>>>> Stashed changes
 }
