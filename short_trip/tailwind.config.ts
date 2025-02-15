@@ -11,6 +11,11 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        accentfore: "var(--accent-foreground)",
+        mutecolor: "var(--muted)",
+        red: "var(--primary-red)",
+        yellow: "var(--primary-yellow)",
+        orange: "var(--primary-orange)",
       },
     },
   },

@@ -2,20 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --accent-foreground: #3a3a3a;
+    --muted: #f4f4f4;
+    --primary-red: #ed1d1d;
+    --accent-yellow: #ffde16;
+    --accent-orange: #f79120;
+  }
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Roboto, Arial, sans-serif;
+  }
+  /* @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #ff0505;
+      --foreground: #ededed;
+    }
+  } */
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ff0505;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
   }
-} */
+}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out;
+}
+
+.scroll-indicator {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+html {
+  scroll-behavior: smooth;
 }
