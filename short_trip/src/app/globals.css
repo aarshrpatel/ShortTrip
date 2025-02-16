@@ -31,6 +31,34 @@
   }
 }
 
+@layer utilities {
+  .bg-background {
+    background-color: var(--background);
+  }
+  .text-foreground {
+    color: var(--foreground);
+  }
+  .text-accent {
+    color: var(--accent-foreground);
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+  .text-red {
+    color: var(--primary-red);
+  }
+  .text-yellow {
+    color: var(--accent-yellow);
+  }
+  .text-orange {
+    color: var(--accent-orange);
+  }
+  .hover\\:text-red:hover {
+    color: var(--primary-red);
+  }
+}
+
+
 @keyframes fade-up {
   from {
     opacity: 0;
