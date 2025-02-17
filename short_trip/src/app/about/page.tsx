@@ -1,7 +1,10 @@
+import hero from "@/assets/new-store-grand-opening-ribbon-cutting.jpg";
+import Image from "next/image";
+
 export default function About() {
     return (
-        <div>
-            <button className="flex bg-sky-500 hover:bg-sky-700 mt-100">Test</button>
-        </div>
+        <main className="h-[60vh]">
+            
+        </main>
     );
 }
