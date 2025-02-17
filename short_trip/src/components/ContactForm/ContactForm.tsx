@@ -49,7 +49,7 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-mutecolor rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto p-6 bg-mutecolor rounded-lg shadow-2xl">
       <h2 className="text-2xl font-bold text-foreground mb-4">Contact Us</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

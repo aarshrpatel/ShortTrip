@@ -3,6 +3,7 @@ import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import PageWrapper from "@/components/PageWrapper";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -30,7 +31,7 @@ export default function RootLayout({
       <body
         className={''}>
         <Navbar />
-        {children}
+        <PageWrapper>{children}</PageWrapper>
         <Footer />
       </body>
     </html>
