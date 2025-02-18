@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import { FiClock, FiPhone, FiMapPin } from 'react-icons/fi'
+import {color} from "framer-motion";
 
 const locationData = [
   // Example data for locations
@@ -11,19 +13,22 @@ const locationData = [
     name: 'Short Trip - San Francisco',
     position: [37.7749, -122.4194],
     address: '1234 Market St, San Francisco, CA 94103',
-    phone: '(415) 123-4567'
+    phone: '(415) 123-4567',
+    hours: '6am - 10pm'
   },
   {
     name: 'Short Trip - Los Angeles',
     position: [34.0522, -118.2437],
     address: '5678 Hollywood Blvd, Los Angeles, CA 90028',
-    phone: '(213) 765-4321'
+    phone: '(213) 765-4321',
+    hours: '24hrs'
   },
   {
     name: 'Short Trip - New York',
     position: [40.7128, -74.0060],
     address: '9101 Wall St, New York, NY 10005',
-    phone: '(212) 345-6789'
+    phone: '(212) 345-6789',
+    hours: '9am - 10pm'
   }
 ];
 
@@ -58,16 +63,23 @@ export default function Locations() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Left: Location Cards */}
-          <div className="overflow-y-auto max-h-[500px] border-r pr-4">
+          <div className="overflow-y-auto max-h-[500px] border-r pr-6">
             {filteredLocations.length > 0 ? (
               filteredLocations.map((location) => (
                 <div key={location.name} className="border rounded-lg p-4 shadow mb-4">
-                  <img
-                    alt={location.name}
-                    className="w-full h-32 object-cover rounded"
-                  />
                   <h2 className="text-xl font-semibold mt-2">{location.name}</h2>
-                  <p className="text-sm text-gray-600">{location.address}</p>
+                  <span className={'inline-flex'}>
+                    <FiMapPin style={{color: 'red'}} className="inline mr-1 mt-0.5" />                    
+                    <p className="text-sm text-accentfore">{location.address}</p>
+                  </span>
+                  <span className={'inline-flex'}>
+                    <FiPhone style={{color: 'red'}} className="inline mr-1 mt-0.5" />
+                    <p className="text-sm text-accentfore">{location.phone}</p>
+                  </span>
+                  <span className={'inline-flex'}>
+                    <FiClock style={{color: 'red'}} className=" inline mr-1 mt-0.5" />
+                    <p className="text-sm text-accentfore">{location.hours}</p>
+                  </span>
                 </div>
               ))
             ) : (
