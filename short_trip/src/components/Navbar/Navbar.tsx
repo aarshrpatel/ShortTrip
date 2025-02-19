@@ -29,8 +29,8 @@ const Navbar = () => {
   const updateHighlight = (element: HTMLElement | null, href: string | null = null) => {
     if (element) {
       setHighlightStyle({
-        left: `${element.offsetLeft + 8}px`, // Add padding to center highlight
-        width: `${element.offsetWidth - 16}px`, // Reduce width slightly
+        left: `${element.offsetLeft}px`, // Add padding to center highlight
+        width: `${element.offsetWidth}px`, // Reduce width slightly
       });
       setHoveredLink(href); // Track the hovered link
     }
@@ -53,12 +53,12 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 w-full flex items-center justify-between z-40">
         <div
           ref={navRef}
-          className="hidden md:flex font-bold fixed top-8 left-1/2 transform -translate-x-1/2 
-                     bg-mutecolor text-foreground px-4 py-2 rounded-full shadow-lg gap-6 text-lg relative"
+          className="hidden md:flex font-bold fixed top-4 left-1/2 transform -translate-x-1/2 
+                     bg-mutecolor text-foreground rounded-full shadow-lg gap-6 text-lg"
         >
           {/* Highlighted Sliding Background */}
           <div
-            className="absolute top-1/2 left-0 h-[60%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
+            className="absolute top-1/2 left-0 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
             style={{ ...highlightStyle, position: "absolute" }}
           ></div>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
             <Link
               key={item.href}
               href={item.href}
-              className={`relative px-4 py-2 text-lg font-medium transition-all duration-300 z-10 ${
+              className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 ${
                 hoveredLink === item.href
                   ? "text-white" // Make hovered link text white
                   : pathname === item.href && hoveredLink
