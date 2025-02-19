@@ -17,7 +17,7 @@ const pageVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.2, // Smooth entry
+      duration: .75, // Smooth entry
       ease: "easeOut",
     },
   },

@@ -1,7 +1,10 @@
+import hero from "@/assets/new-store-grand-opening-ribbon-cutting.jpg";
+import Image from "next/image";
+
 export default function About() {
     return (
-      <div className="h-screen">
-        {/*About*/}
-      </div>
+        <main className="h-[60vh]">
+            
+        </main>
     );
 }
