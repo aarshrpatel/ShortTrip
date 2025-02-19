@@ -93,6 +93,13 @@ export default function Locations() {
     const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
     window.open(directionsUrl, "_blank")
   }
+  
+  const customIcon = new L.Icon({
+    iconUrl: customIconUrl.src,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40],
+  })
 
   return (
     <div className="h-auto mx-auto px-8 pt-16 mt-16">
@@ -138,7 +145,6 @@ export default function Locations() {
           {filteredLocations.map((location) => (
             <motion.div
               key={location.id}
-              // Click the entire card to set the map center
               onClick={() => handleLocationClick(location.id)}
               className={`mb-6 cursor-pointer ${
                 selectedLocation === location.id ? "ring-2 ring-red rounded-lg" : ""
@@ -180,7 +186,7 @@ export default function Locations() {
 
         {/* Map Section */}
         <motion.div
-          className="order-1 md:order-2 w-full h-[630px] rounded-lg overflow-hidden shadow"
+          className="order-2 md:order-2 w-full h-[630px] rounded-lg shadow"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -195,12 +201,14 @@ export default function Locations() {
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+              className = 'rounded-lg'
             />
 
             {filteredLocations.map((loc) => (
               <Marker
                 key={loc.id}
                 position={[loc.coordinates.lat, loc.coordinates.lng]}
+                icon={customIcon}
               >
                 <Popup>
                   <div className="p-1">
