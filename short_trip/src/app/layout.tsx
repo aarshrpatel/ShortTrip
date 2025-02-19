@@ -1,20 +1,8 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import PageWrapper from "@/components/PageWrapper";
-
-const roboto = Roboto({
-  variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: "100"
-});
-
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Short Trip",
@@ -29,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={''}>
+        className={'font-roboto'}>
         <Navbar />
         <PageWrapper>{children}</PageWrapper>
         <Footer />

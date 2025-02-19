@@ -26,7 +26,8 @@ const Navbar = () => {
   const getLinkClass = (path: string) =>
     `relative text-lg font-medium px-4 py-2 transition-all duration-300 ${
       pathname === path
-        ? "text-red after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-red after:transition-all after:duration-300"
+        ? "text-red after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full after:bg-red " +
+        "after:transition-all after:duration-300"
         : "text-foreground hover:text-red"
     }`;
 
@@ -42,7 +43,7 @@ const Navbar = () => {
         {/* Desktop Links */}
         <div
           className="hidden md:flex font-bold fixed top-8 left-1/2 transform -translate-x-1/2 
-                     bg-mutecolor text-foreground px-4 py-2 rounded-full shadow-lg gap-6 text-lg"
+                     bg-mutecolor text-foreground px-4 rounded-full shadow-lg gap-6 text-lg"
         >
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className={getLinkClass(item.href)}>
@@ -61,14 +62,15 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-20 right-4 w-56 bg-mutecolor rounded-lg shadow-lg z-50 transition-all duration-300">
+        <div className="md:hidden fixed top-20 right-4 w-56 bg-mutecolor rounded-lg shadow-lg
+                        z-50 transition-all duration-300">
           <ul className="flex flex-col space-y-4 p-4 text-lg text-foreground">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   className={`block rounded-lg px-4 py-2 transition-all duration-300 ${
-                    pathname === item.href ? "text-red font-semibold" : ""
+                    pathname === item.href ? "text-red font-semibold" : "hover:text-red"
                   }`}
                   onClick={toggleMenu}
                 >

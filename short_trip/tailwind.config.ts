@@ -17,6 +17,10 @@ export default {
         yellow: "var(--primary-yellow)",
         orange: "var(--primary-orange)",
       },
+      fontFamily: {
+        roboto: "var(--font-roboto)",
+        robotoMono: "var(--font-roboto-mono)",
+      },
     },
   },
   plugins: [],
