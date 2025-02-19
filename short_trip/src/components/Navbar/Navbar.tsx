@@ -46,7 +46,7 @@ const Navbar = () => {
     <header>
       {/* Logo */}
       <div className="fixed top-0 left-0 z-50 mx-6 my-5">
-        <Image src={logo} alt="logo" width={60} height={45} />
+        <Image src={logo} alt="logo" width={80} height={80} />
       </div>
 
       {/* Desktop Navbar */}

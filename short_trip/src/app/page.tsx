@@ -1,12 +1,17 @@
 import Image from "next/image";
 import career from "@/assets/landing-employees.svg";
+import TransitionSVG from "@/components/TransitionSVG";
+import st110 from "@/assets/ST110.svg";
 
 export default function Home() {
   return (
-    <div className="h-screen">
+    <div className="">
       {/* Hero Image */}
-      
+      <div className="h-[80vh] flex flex-row items-center justify-center">
+        <Image src={st110} alt="Champ Chicken In Our Store with Employee Smiling" className="h-[90%] w-[90%]"/>
+      </div>
       {/* Food, Hot Drinks, Cold Drinks Promotion */}
+      <TransitionSVG/>
 
       {/* Store Images with Text */}
 
