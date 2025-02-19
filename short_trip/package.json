@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "framer-motion": "^12.4.3",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.475.0",
     "next": "15.1.6",
     "nodemailer": "^6.10.0",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/leaflet": "^1.9.16",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
