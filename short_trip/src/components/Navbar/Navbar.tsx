@@ -19,6 +19,7 @@ const Navbar = () => {
     { label: "Our Story", href: "/about" },
     { label: "Locations", href: "/locations" },
     { label: "Contact Us", href: "/contact" },
+    { label: "Career", href: "/career" }
   ];
 
   const toggleMenu = () => {
@@ -45,10 +46,11 @@ const Navbar = () => {
   return (
     <header>
       {/* Logo */}
-      <div className="fixed top-0 left-0 z-50 mx-6 my-5">
-        <Image src={logo} alt="logo" width={80} height={80} />
-      </div>
-
+      <Link href="/">
+        <div className="fixed top-0 left-0 z-50 mx-6 my-5">
+          <Image src={logo} alt="logo" width={80} height={80} />
+        </div>
+      </Link>
       {/* Desktop Navbar */}
       <nav className="fixed top-0 left-0 w-full flex items-center justify-between z-40">
         <div
@@ -64,6 +66,7 @@ const Navbar = () => {
 
           {navItems.map((item) => (
             <Link
+              prefetch={true}
               key={item.href}
               href={item.href}
               className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 ${
@@ -103,6 +106,7 @@ const Navbar = () => {
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
+                  prefetch={true}
                   href={item.href}
                   className={`block rounded-lg px-4 py-2 transition-all duration-300 ${
                     pathname === item.href ? "bg-red text-white font-semibold" : "hover:bg-red hover:text-white"

@@ -30,7 +30,7 @@ const middleExpandVariants = {
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full bg-mutecolor">
       {/* Hero Image */}
       <motion.section
         variants={sectionVariants}
@@ -87,7 +87,7 @@ export default function Home() {
         <p className="text-lg md:text-xl font-bold text-white max-w-lg md:max-w-2xl">
           At Short Trip, we’re redefining convenience by bringing everything your neighborhood needs into one stop. From fuel to fresh snacks, great coffee, and everyday essentials, we’re here to make your journey easier. Learn more about our story, mission, and commitment to quality service.
         </p>
-        <Link href="/about">
+        <Link href="/about" prefetch={true}>
           <button className="bg-white text-red font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:bg-red hover:text-white hover:border hover:border-white">
             Learn More
           </button>
@@ -102,11 +102,16 @@ export default function Home() {
         viewport={{ once: false, amount: 0.2 }}
         className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 py-16 px-4 sm:px-8"
       >
-        <div className="max-w-lg text-center md:text-left">
+        <div className="max-w-lg text-center md:text-left ">
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Join Our Family</h2>
-          <p className="text-lg md:text-xl font-bold text-gray-700">
+          <p className="text-lg md:text-xl font-bold text-gray-700 mb-6">
             At Short Trip, we’re more than just a team—we’re a family. We’re looking for passionate, hardworking individuals who want to grow with us and make a difference in the communities we serve. Whether you're starting your career or looking for your next opportunity, we have a place for you.
           </p>
+          <Link href="/career" prefetch={true}>
+            <button className="bg-red text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:bg-white hover:text-red hover:border hover:border-red">
+              Work With Us
+            </button>
+          </Link>
         </div>
 
         <div className="w-full max-w-sm">
