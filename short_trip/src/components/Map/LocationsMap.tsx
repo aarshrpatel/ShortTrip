@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import customIconUrl from "@/assets/mappin.png";
 import "leaflet/dist/leaflet.css";
 
-/** Lazy-load the MapContainer from react-leaflet (no SSR). */
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
   { ssr: false }
 );
 
-/** Use a custom icon for markers. */
 const customIcon = new L.Icon({
   iconUrl: customIconUrl.src,
   iconSize: [40, 40],
@@ -35,12 +33,14 @@ interface LocationsMapProps {
   mapCenter: { lat: number; lng: number };
   filteredLocations: Location[];
   handleGetDirections: (locationId: number) => void;
+  selectedLocationId?: number | null;
 }
 
 export default function LocationsMap({
                                        mapCenter,
                                        filteredLocations,
                                        handleGetDirections,
+                                       selectedLocationId,
                                      }: LocationsMapProps) {
   return (
     <MapContainer
@@ -55,11 +55,66 @@ export default function LocationsMap({
           OpenStreetMap</a> contributors'
       />
 
+      <MapMarkers
+        filteredLocations={filteredLocations}
+        handleGetDirections={handleGetDirections}
+        selectedLocationId={selectedLocationId}
+      />
+
+      <FitMapToBounds
+        locations={filteredLocations}
+        selectedLocationId={selectedLocationId}
+      />
+    </MapContainer>
+  );
+}
+
+function MapMarkers({
+                      filteredLocations,
+                      handleGetDirections,
+                      selectedLocationId,
+                    }: {
+  filteredLocations: Location[];
+  handleGetDirections: (id: number) => void;
+  selectedLocationId?: number | null;
+}) {
+  const map = useMap();
+  const markerRefs = useRef<Record<number, L.Marker>>({});
+
+  useEffect(() => {
+    if (!selectedLocationId) return;
+
+    const selectedLocation = filteredLocations.find(
+      (loc) => loc.id === selectedLocationId
+    );
+    if (!selectedLocation) return;
+
+    const marker = markerRefs.current[selectedLocationId];
+    if (!marker) return;
+
+    // Open the popup for this marker
+    marker.openPopup();
+
+    // Smoothly “fly” the map to the marker's location
+    map.flyTo(marker.getLatLng(), 14, {
+      animate: true,
+      duration: 1.5, // Adjust duration for a slower or faster zoom
+    });
+  }, [selectedLocationId, filteredLocations, map]);
+
+  return (
+    <>
       {filteredLocations.map((loc) => (
         <Marker
           key={loc.id}
           position={[loc.coordinates.lat, loc.coordinates.lng]}
           icon={customIcon}
+          // Save a ref to the Leaflet Marker instance
+          ref={(markerInstance) => {
+            if (markerInstance) {
+              markerRefs.current[loc.id] = markerInstance;
+            }
+          }}
         >
           <Popup>
             <div className="p-1">
@@ -67,7 +122,7 @@ export default function LocationsMap({
               <p className="mb-2">{loc.address}</p>
               <button
                 onClick={() => handleGetDirections(loc.id)}
-                className="px-3 py-2 bg-blue-500 text-white rounded text-sm"
+                className="px-3 py-2 w-full bg-red text-white rounded text-sm"
               >
                 Get Directions
               </button>
@@ -75,33 +130,35 @@ export default function LocationsMap({
           </Popup>
         </Marker>
       ))}
-
-      <FitMapToBounds locations={filteredLocations} />
-    </MapContainer>
+    </>
   );
 }
 
-/**
- * Automatically fits the map bounds to all markers.
- * If there is only one location, sets a default zoom instead.
- */
-function FitMapToBounds({ locations }: { locations: Location[] }) {
+function FitMapToBounds({
+                          locations,
+                          selectedLocationId,
+                        }: {
+  locations: Location[];
+  selectedLocationId?: number | null;
+}) {
   const map = useMap();
 
   useEffect(() => {
+    // Only auto-fit if NO location is selected
+    if (selectedLocationId) return;
     if (!map || locations.length === 0) return;
 
-    const bounds = L.latLngBounds(
-      locations.map((loc) => [loc.coordinates.lat, loc.coordinates.lng])
-    );
-
     if (locations.length > 1) {
+      const bounds = L.latLngBounds(
+        locations.map((loc) => [loc.coordinates.lat, loc.coordinates.lng])
+      );
       map.fitBounds(bounds, { padding: [50, 50] });
     } else {
+      // Single location: center on it
       const singleLoc = locations[0].coordinates;
       map.setView([singleLoc.lat, singleLoc.lng], 14);
     }
-  }, [map, locations]);
+  }, [map, locations, selectedLocationId]);
 
   return null;
 }
