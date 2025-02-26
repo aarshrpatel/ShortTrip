@@ -69,7 +69,7 @@ const Navbar = () => {
               prefetch={true}
               key={item.href}
               href={item.href}
-              className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 ${
+              className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 content-center text-center ${
                 hoveredLink === item.href
                   ? "text-white" // Make hovered link text white
                   : pathname === item.href && hoveredLink

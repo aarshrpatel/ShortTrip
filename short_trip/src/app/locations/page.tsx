@@ -1,15 +1,17 @@
-'use client'
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import 'leaflet/dist/leaflet.css'
-import { FiClock, FiPhone, FiMapPin, FiSearch } from 'react-icons/fi'
-import { motion } from 'framer-motion'
-import { Card, Form } from 'react-bootstrap'
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
-import L from 'leaflet'
-import customIconUrl from '@/assets/mappin.png'
+import React, { useEffect, useState } from "react";
+import { FiClock, FiPhone, FiMapPin, FiSearch } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { Card, Form } from "react-bootstrap";
+import dynamic from "next/dynamic";
 
-// Example data
+/** Lazy-load the LocationsMap component (no SSR). */
+const LocationsMap = dynamic(() => import("@/components/Map/LocationsMap"), {
+  ssr: false,
+});
+
+/** Example location data. Replace or fetch dynamically as needed. */
 const locations = [
   {
     id: 1,
@@ -35,71 +37,58 @@ const locations = [
     hours: "5am - 9pm, Mon-Sat, 8am - 8pm Sun",
     coordinates: { lat: 33.173869, lng: -80.207702 },
   },
-  {
-    id: 4,
-    name: "Short Trip - Ridgeville",
-    address: "3147 State Rd, Ridgeville, SC 29472",
-    phone: "(843) 688-5800",
-    hours: "5am - 9pm, Mon-Sat, 8am - 8pm Sun",
-    coordinates: { lat: 35.173869, lng: -80.207702 },
-  },
-  {
-    id: 5,
-    name: "Short Trip - Ridgeville",
-    address: "3147 State Rd, Ridgeville, SC 29472",
-    phone: "(843) 688-5800",
-    hours: "5am - 9pm, Mon-Sat, 8am - 8pm Sun",
-    coordinates: { lat: 37.173869, lng: -80.207702 },
-  },
-]
+];
 
-// A helper component to move the map when `mapCenter` changes
-function MapFlyTo({ center }: { center: { lat: number; lng: number } }) {
-  const map = useMap()
-  useEffect(() => {
-    map.flyTo([center.lat, center.lng], 10) // Adjust zoom level as preferred
-  }, [center, map])
-  return null
+/** Calculates the geographic center of multiple locations. */
+function getCenterOfLocations(locationsArray: typeof locations) {
+  if (!locationsArray.length) return { lat: 0, lng: 0 };
+
+  const latitudes = locationsArray.map((loc) => loc.coordinates.lat);
+  const longitudes = locationsArray.map((loc) => loc.coordinates.lng);
+
+  const minLat = Math.min(...latitudes);
+  const maxLat = Math.max(...latitudes);
+  const minLng = Math.min(...longitudes);
+  const maxLng = Math.max(...longitudes);
+
+  return {
+    lat: (minLat + maxLat) / 2,
+    lng: (minLng + maxLng) / 2,
+  };
 }
 
 export default function Locations() {
-  const [searchQuery, setSearchQuery] = useState("")
-  const [selectedLocation, setSelectedLocation] = useState<number | null>(null)
-  const [mapCenter, setMapCenter] = useState<{ lat: number; lng: number }>({
-    lat: 33.000607,
-    lng: -80.090925,
-  })
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
+  const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
 
-  // Filter locations based on the user search
-  const filteredLocations = locations.filter((location) =>
-    location.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    location.address.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  // Center the map around all locations on mount
+  useEffect(() => {
+    const center = getCenterOfLocations(locations);
+    setMapCenter(center);
+  }, []);
 
-  // Move the map to the clicked location
+  // Filter locations by the search query
+  const filteredLocations = locations.filter((loc) =>
+    loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    loc.address.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Update map center when a location is clicked
   const handleLocationClick = (locationId: number) => {
-    setSelectedLocation(locationId)
-    const loc = locations.find((l) => l.id === locationId)
-    if (loc) {
-      setMapCenter(loc.coordinates)
-    }
-  }
+    setSelectedLocation(locationId);
+    const loc = locations.find((l) => l.id === locationId);
+    if (loc) setMapCenter(loc.coordinates);
+  };
 
-  // Get directions (opens in new tab)
+  // Open Google Maps directions in a new tab
   const handleGetDirections = (locationId: number) => {
-    const loc = locations.find((l) => l.id === locationId)
-    if (!loc) return
-    const { lat, lng } = loc.coordinates
-    const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
-    window.open(directionsUrl, "_blank")
-  }
-  
-  const customIcon = new L.Icon({
-    iconUrl: customIconUrl.src,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -40],
-  })
+    const loc = locations.find((l) => l.id === locationId);
+    if (!loc) return;
+    const { lat, lng } = loc.coordinates;
+    const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    window.open(directionsUrl, "_blank");
+  };
 
   return (
     <div className="h-auto mx-auto px-8 pt-16 mt-16">
@@ -113,7 +102,7 @@ export default function Locations() {
         Find a Short Trip Near You
       </motion.h1>
 
-      {/* Search Input */}
+      {/* Search */}
       <motion.div
         className="mb-8"
         initial={{ opacity: 0, y: 20 }}
@@ -135,9 +124,9 @@ export default function Locations() {
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-10">
-        {/* List of Locations */}
+        {/* Location List */}
         <motion.div
-          className="order-2 md:order-1 h-1/2 pr-2"
+          className="order-2 md:order-1 h-[675px] p-3 overflow-y-scroll"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
@@ -147,7 +136,9 @@ export default function Locations() {
               key={location.id}
               onClick={() => handleLocationClick(location.id)}
               className={`mb-6 cursor-pointer ${
-                selectedLocation === location.id ? "ring-2 ring-red rounded-lg" : ""
+                selectedLocation === location.id
+                  ? "ring-2 ring-red-500 rounded-lg"
+                  : ""
               }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -158,24 +149,15 @@ export default function Locations() {
                     <h2 className="text-2xl font-semibold">{location.name}</h2>
                   </div>
                   <div className="flex items-start mb-2 text-sm">
-                    <FiMapPin
-                      color={"red"}
-                      className="w-5 h-5 mr-2 flex-shrink-0 text-red-500"
-                    />
+                    <FiMapPin className="w-5 h-5 mr-2 text-red-500" />
                     <p>{location.address}</p>
                   </div>
                   <div className="flex items-center mb-2 text-sm">
-                    <FiPhone
-                      color={"red"}
-                      className="w-5 h-5 mr-2 flex-shrink-0 text-red-500"
-                    />
+                    <FiPhone className="w-5 h-5 mr-2 text-red-500" />
                     <p>{location.phone}</p>
                   </div>
                   <div className="flex items-center text-sm">
-                    <FiClock
-                      color={"red"}
-                      className="w-5 h-5 mr-2 flex-shrink-0 text-red-500"
-                    />
+                    <FiClock className="w-5 h-5 mr-2 text-red-500" />
                     <p>{location.hours}</p>
                   </div>
                 </Card.Body>
@@ -184,50 +166,20 @@ export default function Locations() {
           ))}
         </motion.div>
 
-        {/* Map Section */}
+        {/* Map Component */}
         <motion.div
-          className="order-2 md:order-2 w-full h-[630px] rounded-lg shadow"
+          className="order-2 md:order-2 w-full h-[630px] rounded-lg shadow map-wrapper"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <MapContainer
-            center={[mapCenter.lat, mapCenter.lng]}
-            zoom={10}
-            style={{ width: '100%', height: '100%' }}
-          >
-            <MapFlyTo center={mapCenter} />
-
-            <TileLayer
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-              className = 'rounded-lg'
-            />
-
-            {filteredLocations.map((loc) => (
-              <Marker
-                key={loc.id}
-                position={[loc.coordinates.lat, loc.coordinates.lng]}
-                icon={customIcon}
-              >
-                <Popup>
-                  <div className="p-1">
-                    <h2 className="font-semibold text-lg mb-2">{loc.name}</h2>
-                    <p className="mb-2">{loc.address}</p>
-                    {/* Moved the "Get Directions" button into the popup */}
-                    <button
-                      onClick={() => handleGetDirections(loc.id)}
-                      className="px-3 py-2 bg-blue-500 text-white rounded text-sm"
-                    >
-                      Get Directions
-                    </button>
-                  </div>
-                </Popup>
-              </Marker>
-            ))}
-          </MapContainer>
+          <LocationsMap
+            mapCenter={mapCenter}
+            filteredLocations={filteredLocations}
+            handleGetDirections={handleGetDirections}
+          />
         </motion.div>
       </div>
     </div>
-  )
+  );
 }

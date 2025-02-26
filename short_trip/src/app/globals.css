@@ -17,12 +17,6 @@
     background: var(--background);
     font-family: Roboto, Arial, sans-serif;
   }
-  /* @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #ff0505;
-      --foreground: #ededed;
-    }
-  } */
 }
 
 @layer base {
@@ -56,8 +50,10 @@
   .hover\\:text-red:hover {
     color: var(--primary-red);
   }
+  .map-wrapper .leaflet-container {
+    z-index: 0 !important;
+  }
 }
-
 
 @keyframes fade-up {
   from {

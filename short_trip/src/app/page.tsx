@@ -30,7 +30,7 @@ const middleExpandVariants = {
 
 export default function Home() {
   return (
-    <div className="w-full bg-mutecolor">
+    <div className="w-full bg-background">
       {/* Hero Image */}
       <motion.section
         variants={sectionVariants}
