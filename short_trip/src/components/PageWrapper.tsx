@@ -1,41 +1,36 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import React from "react";
 import { ReactNode } from "react";
 
 interface PageWrapperProps {
   children: ReactNode;
 }
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 30,
-  },
-  animate: {
+const sectionVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: .75, // Smooth entry
-      ease: "easeOut",
-    },
+    transition: { duration: 0.8, ease: "easeOut" },
   },
 };
 
 export default function PageWrapper({ children }: PageWrapperProps) {
-  const pathname = usePathname();
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <div>
+      {React.Children.map(children, (child, index) => (
+        <motion.div
+          key={index}
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }} // Adjust amount to trigger earlier/later
+        >
+          {child}
+        </motion.div>
+      ))}
+    </div>
   );
 }
