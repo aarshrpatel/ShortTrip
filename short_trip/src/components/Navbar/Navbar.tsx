@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
@@ -11,8 +11,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
-  const [highlightStyle, setHighlightStyle] = useState({ left: "0px", width: "0px" });
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const highlightRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -23,24 +22,21 @@ const Navbar = () => {
   ];
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
-  // Function to update highlight position based on hovered or active link
-  const updateHighlight = (element: HTMLElement | null, href: string | null = null) => {
-    if (element) {
-      setHighlightStyle({
-        left: `${element.offsetLeft}px`, // Add padding to center highlight
-        width: `${element.offsetWidth}px`, // Reduce width slightly
-      });
-      setHoveredLink(href); // Track the hovered link
+  // Update the highlight element's position directly using refs
+  const updateHighlight = (element: HTMLElement | null) => {
+    if (element && highlightRef.current) {
+      highlightRef.current.style.left = `${element.offsetLeft}px`;
+      highlightRef.current.style.width = `${element.offsetWidth}px`;
     }
   };
 
   useEffect(() => {
-    // Set the highlight to the active link on page load
-    const activeLink = navRef.current?.querySelector(`a[data-active="true"]`);
-    if (activeLink) updateHighlight(activeLink as HTMLElement, pathname);
+    // On page load or pathname change, set the highlight to the active link.
+    const activeLink = navRef.current?.querySelector(`a[data-active="true"]`) as HTMLElement;
+    if (activeLink) updateHighlight(activeLink);
   }, [pathname]);
 
   return (
@@ -51,39 +47,34 @@ const Navbar = () => {
           <Image src={logo} alt="logo" width={80} height={80} />
         </div>
       </Link>
+
       {/* Desktop Navbar */}
       <nav className="fixed top-0 left-0 w-full flex items-center justify-between z-40">
         <div
           ref={navRef}
           className="hidden md:flex font-bold fixed top-4 left-1/2 transform -translate-x-1/2 
-                     bg-mutecolor text-foreground rounded-full shadow-lg gap-6 text-lg"
+                     bg-mutecolor text-foreground rounded-full shadow-lg gap-6 text-lg relative"
         >
-          {/* Highlighted Sliding Background */}
+          {/* Highlight Sliding Background */}
           <div
-            className="absolute top-1/2 left-0 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
-            style={{ ...highlightStyle, position: "absolute" }}
+            ref={highlightRef}
+            className="absolute top-1/2 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
           ></div>
 
           {navItems.map((item) => (
             <Link
-              prefetch={true}
+              prefetch
               key={item.href}
               href={item.href}
-              className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 ${
-                hoveredLink === item.href
-                  ? "text-white" // Make hovered link text white
-                  : pathname === item.href && hoveredLink
-                  ? "text-foreground" // Change current page link text back to black when hovering elsewhere
-                  : pathname === item.href
-                  ? "text-white" // Keep active page text white when no hovering
-                  : "text-foreground hover:text-white"
+              className={`relative px-4 m-2 text-lg font-medium transition-colors duration-300 z-10 ${
+                pathname === item.href ? "text-white" : "text-foreground hover:text-white"
               }`}
               data-active={pathname === item.href}
-              onMouseEnter={(e) => updateHighlight(e.currentTarget, item.href)}
+              onMouseEnter={(e) => updateHighlight(e.currentTarget)}
               onMouseLeave={() => {
-                setHoveredLink(null);
-                const activeLink = navRef.current?.querySelector(`a[data-active="true"]`);
-                if (activeLink) updateHighlight(activeLink as HTMLElement, pathname);
+                // On mouse leave, reset the highlight to the active link.
+                const activeLink = navRef.current?.querySelector(`a[data-active="true"]`) as HTMLElement;
+                if (activeLink) updateHighlight(activeLink);
               }}
             >
               {item.label}
@@ -106,10 +97,12 @@ const Navbar = () => {
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
-                  prefetch={true}
+                  prefetch
                   href={item.href}
                   className={`block rounded-lg px-4 py-2 transition-all duration-300 ${
-                    pathname === item.href ? "bg-red text-white font-semibold" : "hover:bg-red hover:text-white"
+                    pathname === item.href
+                      ? "bg-red text-white font-semibold"
+                      : "hover:bg-red hover:text-white"
                   }`}
                   onClick={toggleMenu}
                 >
