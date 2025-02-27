@@ -21,6 +21,7 @@ const Footer = () => {
         <Link href="/about" className="hover:text-red hover:underline transition-colors">Our Story</Link>
         <Link href="/locations" className="hover:text-red hover:underline transition-colors">Locations</Link>
         <Link href="/contact" className="hover:text-red hover:underline transition-colors">Contact Us</Link>
+        <Link href="/career" className="hover:text-red hover:underline transition-colors">Career</Link>
       </div>
 
       {/* Social Media Icons & Links */}

@@ -5,127 +5,44 @@ import { FiClock, FiPhone, FiMapPin, FiSearch } from "react-icons/fi";
 import { motion } from "framer-motion";
 import { Card, Form } from "react-bootstrap";
 import dynamic from "next/dynamic";
+import { locations } from "./data/locations";
 
 /** Lazy-load the LocationsMap component (no SSR). */
 const LocationsMap = dynamic(() => import("@/components/Map/LocationsMap"), {
   ssr: false,
 });
 
-/** Example location data. Replace or fetch dynamically as needed. */
-const locations = [
-  {
-    id: 1,
-    name: "Short Trip - Ladson",
-    address: "348 College Park Rd, Ladson, SC 29456",
-    phone: "(843) 797-6792",
-    hours: "5am - 12am, 7 days a week",
-    coordinates: { lat: 33.000607, lng: -80.090925 },
-  },
-  {
-    id: 2,
-    name: "Short Trip - Sumter",
-    address: "3880 Patriot Pkwy, Sumter, SC 29154",
-    phone: "(803) 294-0300",
-    hours: "5am - 10pm Mon-Fri, 6am - 10pm Sat, 7am - 8pm Sun",
-    coordinates: { lat: 33.935857, lng: -80.441361 },
-  },
-  {
-    id: 3,
-    name: "Short Trip - Ridgeville",
-    address: "3147 State Rd, Ridgeville, SC 29472",
-    phone: "(843) 688-5800",
-    hours: "5am - 9pm, Mon-Sat, 8am - 8pm Sun",
-    coordinates: { lat: 33.173869, lng: -80.207702 },
-  },
-  {
-    id: 4,
-    name: "Short Trip - St. George",
-    address: "601 N Parler Ave, St. George, SC 29477",
-    phone: "(843) 563-5000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.207013, lng: -80.579013 },
-  },
-  {
-    id: 5,
-    name: "Short Trip - Orangeburg",
-    address: "1000 Chestnut St, Orangeburg, SC 29115",
-    phone: "(803) 531-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.496013, lng: -80.855013 },
-  },
-  {
-    id: 6,
-    name: "Short Trip - Walterboro",
-    address: "1000 Sniders Hwy, Walterboro, SC 29488",
-    phone: "(843) 538-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 32.905013, lng: -80.655013 },
-  },
-  {
-    id: 7,
-    name: "Short Trip - Kingstree",
-    address: "1000 N Longstreet St, Kingstree, SC 29556",
-    phone: "(843) 354-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.666013, lng: -79.850013 },
-  },
-  {
-    id: 8,
-    name: "Short Trip - Florence",
-    address: "1000 S Irby St, Florence, SC 29501",
-    phone: "(843) 662-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 34.196013, lng: -79.765013 },
-  },
-  {
-    id: 9,
-    name: "Short Trip - Georgetown",
-    address: "1000 N Fraser St, Georgetown, SC 29440",
-    phone: "(843) 546-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.376013, lng: -79.295013 },
-  },
-  {
-    id: 10,
-    name: "Short Trip - Conway",
-    address: "1000 3rd Ave, Conway, SC 29526",
-    phone: "(843) 248-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.836013, lng: -79.050013 },
-  },
-  {
-    id: 11,
-    name: "Short Trip - Myrtle Beach",
-    address: "1000 3rd Ave, Conway, SC 29526",
-    phone: "(843) 626-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 33.706013, lng: -78.890013 },
-  },
-  {
-    id: 12,
-    name: "Short Trip - Charleston",
-    address: "1000 3rd Ave, Conway, SC 29526",
-    phone: "(843) 723-0000",
-    hours: "5am - 10pm, 7 days a week",
-    coordinates: { lat: 32.796013, lng: -79.950013 },
-  },
-];
+/** Haversine formula to calculate distance between two coordinates */
+function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number) {
+  const R = 6371; // Radius of Earth in km
+  const toRad = (x: number) => (x * Math.PI) / 180;
 
-/** Get the geographic center to initialize the map. */
-function getCenterOfLocations(locationsArray: typeof locations) {
-  if (!locationsArray.length) return { lat: 0, lng: 0 };
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
 
-  const latitudes = locationsArray.map((loc) => loc.coordinates.lat);
-  const longitudes = locationsArray.map((loc) => loc.coordinates.lng);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) *
+    Math.cos(toRad(lat2)) *
+    Math.sin(dLng / 2) *
+    Math.sin(dLng / 2);
 
-  const minLat = Math.min(...latitudes);
-  const maxLat = Math.max(...latitudes);
-  const minLng = Math.min(...longitudes);
-  const maxLng = Math.max(...longitudes);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // Distance in km
+}
+
+/** Get coordinates for a given search query using OpenStreetMap's Nominatim API */
+async function getCoordinates(query: string | number | boolean) {
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+    query
+  )}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  if (data.length === 0) return null;
 
   return {
-    lat: (minLat + maxLat) / 2,
-    lng: (minLng + maxLng) / 2,
+    lat: parseFloat(data[0].lat),
+    lng: parseFloat(data[0].lon),
   };
 }
 
@@ -133,30 +50,14 @@ export default function Locations() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<number | null>(null);
   const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
+  const [sortedLocations, setSortedLocations] = useState([...locations]);
 
-  // On mount, center to all locations
   useEffect(() => {
-    const center = getCenterOfLocations(locations);
+    setSortedLocations([...locations]); // Default sorting (reset)
+    const center = { lat: 0, lng: 0 }; // Default map center
     setMapCenter(center);
   }, []);
 
-  // Filter logic
-  const filteredLocations = locations.filter((loc) =>
-    loc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    loc.address.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  /** Called when user clicks a location card. */
-  const handleLocationClick = (locationId: number) => {
-    setSelectedLocation(locationId);
-    // Optionally move the "map center" state, but not strictly required
-    const loc = locations.find((l) => l.id === locationId);
-    if (loc) {
-      setMapCenter(loc.coordinates);
-    }
-  };
-
-  /** Called when user wants Google Maps directions. */
   const handleGetDirections = (locationId: number) => {
     const loc = locations.find((l) => l.id === locationId);
     if (!loc) return;
@@ -164,6 +65,37 @@ export default function Locations() {
     const { lat, lng } = loc.coordinates;
     const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
     window.open(directionsUrl, "_blank");
+  };
+
+  /** Handles sorting locations by closest distance */
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+    if (!query.trim()) {
+      setSortedLocations([...locations]);
+      return;
+    }
+
+    const userLocation = await getCoordinates(query);
+    if (!userLocation) return;
+
+    const sorted = [...locations].sort((a, b) => {
+      const distA = haversineDistance(
+        userLocation.lat,
+        userLocation.lng,
+        a.coordinates.lat,
+        a.coordinates.lng
+      );
+      const distB = haversineDistance(
+        userLocation.lat,
+        userLocation.lng,
+        b.coordinates.lat,
+        b.coordinates.lng
+      );
+      return distA - distB;
+    });
+
+    setSortedLocations(sorted);
+    setMapCenter(userLocation); // Update map center to searched location
   };
 
   return (
@@ -189,26 +121,26 @@ export default function Locations() {
           </span>
           <Form.Control
             type="text"
-            placeholder="Search by city, state, or zip code"
+            placeholder="Enter city, state, or zip code"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearch(e.target.value)}
             className="rounded-2xl pl-10 pr-4 py-2 w-full"
           />
         </div>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-10">
+      <div className="grid md:grid-cols-2 h-screen gap-10 mb-8">
         {/* Location List */}
         <motion.div
-          className="order-2 md:order-1 h-[auto] p-3 overflow-y-scroll max-h-[630px]"
+          className="order-2 md:order-1 h-[auto] p-3 overflow-y-scroll max-h-[screen]"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {filteredLocations.map((location) => (
+          {sortedLocations.map((location) => (
             <motion.div
               key={location.id}
-              onClick={() => handleLocationClick(location.id)}
+              onClick={() => setSelectedLocation(location.id)}
               className={`mb-6 cursor-pointer ${
                 selectedLocation === location.id ? "ring-2 ring-red rounded-lg" : ""
               }`}
@@ -230,7 +162,11 @@ export default function Locations() {
                   </div>
                   <div className="flex items-center text-sm">
                     <FiClock className="w-5 h-5 mr-2 text-red" />
-                    <p>{location.hours}</p>
+                    <div>
+                      {location.hours.split("|").map((hour, index) => (
+                        <p key={index}>{hour}</p>
+                      ))}
+                    </div>
                   </div>
                 </Card.Body>
               </Card>
@@ -238,18 +174,18 @@ export default function Locations() {
           ))}
         </motion.div>
 
-        {/* Pass selectedLocationId down so the map knows which marker to open */}
+        {/* Map */}
         <motion.div
-          className="order-2 md:order-2 w-full h-[630px] rounded-lg shadow map-wrapper"
+          className="order-2 md:order-2 w-full h-full rounded-lg shadow map-wrapper"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <LocationsMap
             mapCenter={mapCenter}
-            filteredLocations={filteredLocations}
+            filteredLocations={sortedLocations}
+            selectedLocationId={selectedLocation} 
             handleGetDirections={handleGetDirections}
-            selectedLocationId={selectedLocation} // <-- new prop
           />
         </motion.div>
       </div>
