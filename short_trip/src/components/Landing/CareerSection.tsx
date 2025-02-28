@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import career from "@/assets/landing-employees.svg";
+import career from "@/assets/landing/landing-employees.svg";
 
 const CareerSection = () => {
   return (

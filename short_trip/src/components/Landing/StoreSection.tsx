@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import stores from "@/assets/landing-stores-design.svg";
+import stores from "@/assets/landing/landing-stores-design.svg";
 
 const StoreSection = () => {
   return (

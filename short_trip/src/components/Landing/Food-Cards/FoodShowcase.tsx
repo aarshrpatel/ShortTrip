@@ -2,9 +2,9 @@
 import React from "react";
 import Card from "./Card";
 import TransitionBackground from "./TransitionBackground";
-import ColdDrink from "@/assets/cold-drink.png";
-import ChickenHotFood from "@/assets/chicken-hot-food.png";
-import HotCoffee from "@/assets/hot-coffee.png";
+import ColdDrink from "@/assets/landing/cold-drink.png";
+import ChickenHotFood from "@/assets/landing/chicken-hot-food.png";
+import HotCoffee from "@/assets/landing/hot-coffee.png";
 
 const FoodShowcase = () => {
   return (

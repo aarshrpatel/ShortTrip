@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Hero from "@/components/Hero";
-import FoodShowcase from "@/components/Food-Cards/FoodShowcase";
-import Testimonials from "@/components/Testimonials";
-import StoreSection from "@/components/StoreSection";
-import CareerSection from "@/components/CareerSection";
-import OurStory from "@/components/OurStory";
+import Hero from "@/components/Landing/Hero";
+import FoodShowcase from "@/components/Landing/Food-Cards/FoodShowcase";
+import StoreSection from "@/components/Landing/StoreSection";
+import CareerSection from "@/components/Landing/CareerSection";
+import OurStory from "@/components/Landing/OurStory";
+import OtherVentures from "@/components/Landing/OtherVentures";
 
 export default function Home() {
   return (
@@ -31,6 +31,9 @@ export default function Home() {
 
       {/* Career Section */}
       <CareerSection />
+
+      {/* Other Ventures Sections */}
+      <OtherVentures />
     </div>
   );
 }

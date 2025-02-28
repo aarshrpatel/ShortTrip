@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import React from "react";
-import stripes from "@/assets/food-cards-background stripes.svg";
+import stripes from "@/assets/landing/food-cards-background-stripes.svg";
 
 const TransitionBackground = () => {
   return (
