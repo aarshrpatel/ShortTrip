@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Hero from "@/components/Landing/Hero";
 import FoodShowcase from "@/components/Landing/Food-Cards/FoodShowcase";
 import StoreSection from "@/components/Landing/StoreSection";

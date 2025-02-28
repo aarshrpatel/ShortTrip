@@ -7,7 +7,7 @@ const Testimonials = () => {
       <div className="container mx-auto text-center px-4">
         <h3 className="text-2xl font-semibold mb-4">What Our Customers Say</h3>
         <p className="text-gray-700 max-w-2xl mx-auto">
-          "The best dining experience I've ever had. The food is phenomenal and the coffee is out of this world!"
+          &ldquot;The best dining experience I&apos;ve ever had. The food is phenomenal and the coffee is out of this world!&rdquote;
         </p>
       </div>
     </section>

@@ -16,7 +16,7 @@ const CareerSection = () => {
       <div className="max-w-lg text-center md:text-left">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Join Our Family</h2>
         <p className="text-lg md:text-xl font-bold text-gray-700 mb-6">
-          At Short Trip, we’re more than just a team—we’re a family. We’re looking for passionate, hardworking individuals who want to grow with us and make a difference in the communities we serve. Whether you're starting your career or looking for your next opportunity, we have a place for you.
+          At Short Trip, we&apos;re more than just a team—we&apos;re a family. We&apos;re looking for passionate, hardworking individuals who want to grow with us and make a difference in the communities we serve. Whether you&apos;re starting your career or looking for your next opportunity, we have a place for you.
         </p>
         <Link href="/career" prefetch={true}>
           <button className="bg-red text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 hover:bg-white hover:text-red hover:border hover:border-red">

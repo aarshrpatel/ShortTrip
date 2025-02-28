@@ -32,7 +32,7 @@ const StoreSection = () => {
               More Than Just a Gas Station
             </h2>
             <p className="text-lg md:text-xl font-bold text-gray-700">
-              We’re your one-stop shop for fresh coffee, delicious snacks, and everyday essentials. Whether you're on the road or in the neighborhood, our stores are designed to make your day easier.
+              We&apos;re your one-stop shop for fresh coffee, delicious snacks, and everyday essentials. Whether you&apos;re on the road or in the neighborhood, our stores are designed to make your day easier.
             </p>
           </div>
         </div>

@@ -28,7 +28,7 @@ const OtherVentures = () => {
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Other Ventures</h2>
         <p className="text-lg text-gray-600 mb-8">
-          Discover the innovative projects and brands we're proud to be a part of.
+          Discover the innovative projects and brands we&apos;re proud to be a part of.
         </p>
         <div className="flex flex-wrap justify-center gap-8">
           {ventures.map((venture) => (

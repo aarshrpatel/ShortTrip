@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "framer-motion";
 import React from "react";
 import { ReactNode } from "react";
@@ -26,7 +25,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }} // Adjust amount to trigger earlier/later
+          viewport={{ once: true, amount: 0.2 }} // Now only transitions in once
         >
           {child}
         </motion.div>
