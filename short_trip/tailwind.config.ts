@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+// tailwind.config.js
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,8 +15,8 @@ export default {
         accentfore: "var(--accent-foreground)",
         mutecolor: "var(--muted)",
         red: "var(--primary-red)",
-        yellow: "var(--primary-yellow)",
-        orange: "var(--primary-orange)",
+        yellow: "var(--accent-yellow)",  // Changed from primary-yellow
+        orange: "var(--accent-orange)",  // Changed from primary-orange
       },
       fontFamily: {
         roboto: "var(--font-roboto)",
