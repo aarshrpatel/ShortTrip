@@ -10,10 +10,10 @@ const FoodShowcase = () => {
   return (
     <section className="relative z-0 py-12 px-4">
       <TransitionBackground />
-      <div className="relative z-10">
+      <div className="relative z-4">
         <div className="flex flex-wrap justify-center text-red gap-8">
           <Card label="Hot Foods" imageSrc={ChickenHotFood} />
-          <Card label="Hot Beverages" imageSrc={ColdDrink} />
+          <Card label="Cold Beverages" imageSrc={ColdDrink} />
           <Card label="Fresh Coffee" imageSrc={HotCoffee} />
         </div>
       </div>

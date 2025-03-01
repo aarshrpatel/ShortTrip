@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({ label, imageSrc }) => {
       className="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-xs h-[350px] flex flex-col"
     >
       {/* Image Section */}
-      <div className="relative h-2/3">
+      <div className="relative h-3/4">
         <Image
           src={imageSrc}
           alt="Card image"
@@ -24,7 +24,7 @@ const Card: React.FC<CardProps> = ({ label, imageSrc }) => {
         />
       </div>
       {/* Label Section */}
-      <div className="p-4 flex flex-col justify-center h-1/3">
+      <div className="p-4 flex flex-col justify-center h-1/4">
         <h3 className="text-2xl font-bold text-red-500 text-center">
           {label}
         </h3>

@@ -18,7 +18,7 @@ const Navbar = () => {
     { label: "Our Story", href: "/about" },
     { label: "Locations", href: "/locations" },
     { label: "Contact Us", href: "/contact" },
-    { label: "Career", href: "/career" }
+    { label: "Career", href: "/career" },
   ];
 
   const toggleMenu = () => {
@@ -35,7 +35,9 @@ const Navbar = () => {
 
   useEffect(() => {
     // On page load or pathname change, set the highlight to the active link.
-    const activeLink = navRef.current?.querySelector(`a[data-active="true"]`) as HTMLElement;
+    const activeLink = navRef.current?.querySelector(
+      `a[data-active="true"]`
+    ) as HTMLElement;
     if (activeLink) updateHighlight(activeLink);
   }, [pathname]);
 
@@ -67,13 +69,15 @@ const Navbar = () => {
               key={item.href}
               href={item.href}
               className={`relative px-4 m-2 text-lg font-medium transition-colors duration-300 z-10 ${
-                pathname === item.href ? "text-white" : "text-foreground hover:text-white"
+                pathname === item.href ? "text-white hover:text-black" : "text-foreground hover:text-white"
               }`}
               data-active={pathname === item.href}
               onMouseEnter={(e) => updateHighlight(e.currentTarget)}
               onMouseLeave={() => {
                 // On mouse leave, reset the highlight to the active link.
-                const activeLink = navRef.current?.querySelector(`a[data-active="true"]`) as HTMLElement;
+                const activeLink = navRef.current?.querySelector(
+                  `a[data-active="true"]`
+                ) as HTMLElement;
                 if (activeLink) updateHighlight(activeLink);
               }}
             >
@@ -101,7 +105,7 @@ const Navbar = () => {
                   href={item.href}
                   className={`block rounded-lg px-4 py-2 transition-all duration-300 ${
                     pathname === item.href
-                      ? "bg-red text-white font-semibold"
+                      ? "bg-red text-black font-semibold"
                       : "hover:bg-red hover:text-white"
                   }`}
                   onClick={toggleMenu}
