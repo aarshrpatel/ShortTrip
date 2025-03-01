@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const coverLetter = formData.get("coverLetter") as string;
     const resumeFile = formData.get("resume") as File | null;
 
-    let attachments = [];
+    const attachments = [];
     if (resumeFile) {
       const arrayBuffer = await resumeFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);

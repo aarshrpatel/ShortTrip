@@ -45,44 +45,40 @@ export default function ApplyPageContent() {
     e.preventDefault();
     setSubmitting(true);
     setStatus("");
-    try {
-      const formData = new FormData();
-      formData.append("name", name);
-      formData.append("email", email);
-      formData.append("phone", phone);
-      formData.append("jobTitle", jobTitle);
-      formData.append("address", address);
-      formData.append("city", city);
-      formData.append("state", state);
-      formData.append("zip", zip);
-      formData.append("linkedin", linkedin);
-      formData.append("coverLetter", coverLetter);
-      if (resumeFile) {
-        formData.append("resume", resumeFile);
-      }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("jobTitle", jobTitle);
+    formData.append("address", address);
+    formData.append("city", city);
+    formData.append("state", state);
+    formData.append("zip", zip);
+    formData.append("linkedin", linkedin);
+    formData.append("coverLetter", coverLetter);
+    if (resumeFile) {
+      formData.append("resume", resumeFile);
+    }
 
-      const res = await fetch("/api/career/apply", {
-        method: "POST",
-        body: formData,
-      });
-      if (res.ok) {
-        setStatus("success");
-        setName("");
-        setEmail("");
-        setPhone("");
-        setAddress("");
-        setCity("");
-        setState("");
-        setZip("");
-        setLinkedin("");
-        setCoverLetter("");
-        setResumeFile(null);
-        // Navigate to the career page after successful submission
-        router.push("/career");
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
+    const res = await fetch("/api/career/apply", {
+      method: "POST",
+      body: formData,
+    });
+    if (res.ok) {
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setAddress("");
+      setCity("");
+      setState("");
+      setZip("");
+      setLinkedin("");
+      setCoverLetter("");
+      setResumeFile(null);
+      // Navigate to the career page after successful submission
+      router.push("/career");
+    } else {
       setStatus("error");
     }
     setSubmitting(false);

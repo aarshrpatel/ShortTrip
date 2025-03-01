@@ -11,7 +11,7 @@ const Hero = () => {
       {/* Background image */}
       <Image
         src={heroBg}
-        alt="Delicious food background"
+        alt="Store Image"
         fill
         className="object-cover"
       />
@@ -22,10 +22,10 @@ const Hero = () => {
       {/* Hero content */}
       <div className="relative z-10 container mx-auto text-center px-4 flex flex-col justify-center h-full">
         <h1 className="text-4xl md:text-6xl font-bold text-white">
-          Indulge in Delicious Flavors
+          Fuel Your Journey with Short Trip
         </h1>
         <p className="mt-4 text-lg md:text-2xl text-white">
-          Experience mouth-watering food, refreshing beverages, and freshly brewed coffee.
+          Discover quality service, fresh coffee, and a one-stop destination at every visit.
         </p>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link

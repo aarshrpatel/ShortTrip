@@ -9,7 +9,7 @@ import coo from "@/assets/about/coo.png";
 import chro from "@/assets/about/chro.png";
 import cto from "@/assets/about/cto.png";
 import groupPhoto from "@/assets/about/teamhandshake.jpeg"; // Replace with the handshake image
-import cloudImage from "@/assets/about/cloud-shape.png"; // Replace with your cloud image
+
 
 // Animation settings
 const fadeIn = {

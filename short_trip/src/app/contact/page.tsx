@@ -16,19 +16,15 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (res.ok) {
+      setStatus("success");
+      setForm({ name: "", email: "", message: "" });
+    } else {
       setStatus("error");
     }
   };
