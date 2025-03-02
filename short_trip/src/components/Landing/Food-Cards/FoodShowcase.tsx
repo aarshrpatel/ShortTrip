@@ -1,26 +1,59 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Card from "./Card";
 import TransitionBackground from "./TransitionBackground";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import ColdDrink from "@/assets/landing/cold-drink.png";
 import ChickenHotFood from "@/assets/landing/chicken-hot-food.png";
 import HotCoffee from "@/assets/landing/hot-coffee.png";
 
+const cards = [
+  { label: "Hot Foods", imageSrc: ChickenHotFood },
+  { label: "Cold Beverages", imageSrc: ColdDrink },
+  { label: "Fresh Coffee", imageSrc: HotCoffee },
+];
+
 const FoodShowcase = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextCard = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % cards.length);
+  };
+
+  const prevCard = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + cards.length) % cards.length);
+  };
+
   return (
     <section className="relative z-0 py-12 px-4">
-      {/* Render the animated background behind the cards */}
       <TransitionBackground />
       <div className="relative z-10">
-        {/*
-          Use a responsive flex layout that wraps items.
-          - "justify-center" ensures that the cards are centered in each row.
-          - "gap-4" is used for mobile (smaller gap), and "sm:gap-8" for larger screens.
-        */}
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
-          <Card label="Hot Foods" imageSrc={ChickenHotFood} />
-          <Card label="Cold Beverages" imageSrc={ColdDrink} />
-          <Card label="Fresh Coffee" imageSrc={HotCoffee} />
+        {/* Desktop layout */}
+        <div className="hidden sm:flex flex-wrap justify-center gap-8">
+          {cards.map((card, index) => (
+            <Card key={index} label={card.label} imageSrc={card.imageSrc} />
+          ))}
+        </div>
+
+        {/* Mobile layout with swipe buttons */}
+        <div className="relative sm:hidden flex items-center justify-center">
+          <button
+            onClick={prevCard}
+            className="absolute left-0 z-20 bg-white/80 p-2 rounded-full shadow-md"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          <div className="overflow-hidden w-64 flex justify-center">
+            <Card label={cards[currentIndex].label} imageSrc={cards[currentIndex].imageSrc} />
+          </div>
+
+          <button
+            onClick={nextCard}
+            className="absolute right-0 z-20 bg-white/80 p-2 rounded-full shadow-md"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
     </section>
