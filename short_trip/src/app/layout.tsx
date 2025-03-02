@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import PageWrapper from "@/components/PageWrapper";
+// import PageWrapper from "@/components/PageWrapper";
 
 // Enhanced SEO metadata
 export const metadata: Metadata = {
