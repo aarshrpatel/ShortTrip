@@ -1,7 +1,6 @@
-// components/CareerPageContent.tsx
 "use client";
 
-import React, { /* useState */ } from "react";
+import React from "react";
 import Link from "next/link";
 import type { Job } from "@/app/career/page"; // Import the Job type from the server file
 
@@ -10,13 +9,7 @@ interface CareerPageContentProps {
 }
 
 export default function CareerPageContent({ jobListings }: CareerPageContentProps) {
-  // State to track the currently selected job (for potential highlighting)
-  // const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
-
-  // Function to set the currently selected job
-  // const handleSelectLocation = (id: string) => {
-  //   setSelectedLocation(id);
-  // };
+  // Removed unused variable 'selectedLocation' and its setter
 
   return (
     <div className="min-h-screen bg-mutecolor text-foreground">
@@ -53,7 +46,7 @@ export default function CareerPageContent({ jobListings }: CareerPageContentProp
             <li
               key={job.id}
               className="bg-white text-foreground rounded-3xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition duration-300 cursor-pointer"
-              // onClick={() => handleSelectLocation(job.id)}
+              // Removed onClick handler since 'selectedLocation' is no longer used.
             >
               {/* Flex container to keep main content and footer separated */}
               <Link href={`/career/apply?jobId=${job.id}`}>

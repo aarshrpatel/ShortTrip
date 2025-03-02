@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +9,9 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   // State to control mobile menu open/close status
   const [isOpen, setIsOpen] = useState(false);
-  // Get current pathname to highlight the active link
+  // Get current pathname for active link highlighting
   const pathname = usePathname();
-  // Refs for the nav container and the sliding highlight element
+  // Refs for the nav container and sliding highlight element
   const navRef = useRef<HTMLDivElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +37,7 @@ const Navbar = () => {
     }
   };
 
-  // On page load or pathname change, update the highlight to the active link
+  // When pathname changes, update the highlight to the active link
   useEffect(() => {
     const activeLink = navRef.current?.querySelector(
       `a[data-active="true"]`
@@ -52,43 +51,46 @@ const Navbar = () => {
     <header>
       {/* Logo Section */}
       <Link href="/">
-        <div className="fixed top-0 left-0 z-50 mx-6 my-5">
+        {/* 
+          Use "absolute" on mobile so the logo appears over (and scrolls with) the hero.
+          On medium screens and larger, use "fixed" so the logo stays at the top.
+        */}
+        <div className="absolute md:fixed top-0 left-0 z-50 mx-6 my-5">
           <Image src={logo} alt="Short Trip Logo" width={80} height={80} />
         </div>
       </Link>
 
-      {/* Desktop Navbar */}
-      <nav className="fixed top-0 left-0 w-full flex items-center justify-between z-40">
-        {/* Navigation container for desktop (hidden on mobile) */}
+      {/* Outer Navbar:
+          - On mobile: 'relative' so it scrolls with the page.
+          - On md and larger: 'fixed' so it remains at the top.
+      */}
+      <nav className="relative md:fixed top-0 left-0 w-full flex items-center justify-between z-40">
+        {/* Desktop Navigation Container (visible on md+):
+            Since the outer nav is fixed on md+, this container can be fixed as well.
+        */}
         <div
           ref={navRef}
-          className="hidden md:flex font-bold fixed top-4 left-1/2 transform -translate-x-1/2 
-                     bg-mutecolor text-foreground rounded-full shadow-lg gap-6 text-lg relative"
+          className="hidden md:flex font-bold fixed top-4 left-1/2 transform -translate-x-1/2 bg-mutecolor text-foreground rounded-full shadow-lg gap-6 text-lg relative"
         >
           {/* Highlight Sliding Background */}
           <div
             ref={highlightRef}
             className="absolute top-1/2 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
           ></div>
-
-          {/* Map over navigation items */}
           {navItems.map((item) => (
             <Link
               prefetch
               key={item.href}
               href={item.href}
-              // Conditionally set classes:
-              // - Active links default to white text and on hover change to black.
-              // - Inactive links use the foreground color and on hover change to white.
+              // Active links (for md+) always display in white even on hover.
               className={`relative px-4 m-2 text-lg font-medium transition-colors duration-300 z-10 ${
                 pathname === item.href
-                  ? "text-white hover:text-black"
+                  ? "text-white hover:text-white"
                   : "text-foreground hover:text-white"
               }`}
               data-active={pathname === item.href}
               onMouseEnter={(e) => updateHighlight(e.currentTarget)}
               onMouseLeave={() => {
-                // Reset the highlight to the active link on mouse leave
                 const activeLink = navRef.current?.querySelector(
                   `a[data-active="true"]`
                 ) as HTMLElement;
@@ -100,8 +102,10 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden fixed top-8 right-6">
+        {/* Mobile Menu Button:
+            On mobile, the navbar is now relative, so position the menu button absolutely relative to it.
+        */}
+        <div className="md:hidden absolute top-8 right-6">
           <button onClick={toggleMenu} className="text-foreground">
             {isOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
@@ -110,17 +114,17 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden fixed top-20 right-4 w-56 bg-mutecolor rounded-lg shadow-lg z-50 transition-all duration-300">
+        <div className="md:hidden absolute top-20 right-4 w-56 bg-mutecolor rounded-lg shadow-lg z-50 transition-all duration-300">
           <ul className="flex flex-col space-y-4 p-4 text-lg text-foreground">
             {navItems.map((item) => (
               <li key={item.href}>
                 <Link
                   prefetch
                   href={item.href}
-                  // Active mobile link: background red with black text; otherwise, use hover states
+                  // Active mobile link: background red with white text, staying white on hover.
                   className={`block rounded-lg px-4 py-2 transition-all duration-300 ${
                     pathname === item.href
-                      ? "bg-red text-black font-semibold"
+                      ? "bg-red text-white hover:text-white font-semibold"
                       : "hover:bg-red hover:text-white"
                   }`}
                   onClick={toggleMenu}
