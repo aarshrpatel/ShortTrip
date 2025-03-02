@@ -23,7 +23,7 @@
     "react-leaflet": "^5.0.0",
     "react-router-dom": "^7.1.5",
     "sharp": "^0.33.5",
-    "vercel": "^41.2.2"
+    "vercel": "^41.3.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
