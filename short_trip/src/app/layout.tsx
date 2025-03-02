@@ -41,7 +41,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-roboto">
         <Navbar />
-        <PageWrapper>{children}</PageWrapper>
+        {children}
         <Footer />
       </body>
     </html>
