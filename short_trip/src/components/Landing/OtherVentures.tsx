@@ -25,27 +25,28 @@ const ventures: Venture[] = [
 
 const OtherVentures = () => {
   return (
-    // Section element with a light background and padding; aria-label for accessibility.
-    <section className="py-12 px-4 bg-gray-100" aria-label="Our Other Ventures">
+    // Outer section with responsive padding
+    <section aria-label="Our Other Ventures" className="py-8 px-4 bg-gray-100">
       <div className="container mx-auto text-center">
-        {/* Section heading */}
-        <h2 className="text-3xl font-bold text-gray-800 mb-4">
+        {/* Section heading with responsive text sizes */}
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 md:mb-4">
           Our Other Ventures
         </h2>
-        {/* Section description */}
-        <p className="text-lg text-gray-600 mb-8">
+        {/* Section description with responsive text sizes */}
+        <p className="text-base md:text-lg text-gray-600 mb-4 md:mb-8">
           Discover the innovative projects and brands we&apos;re proud to be a part of.
         </p>
-        {/* Flex container for venture logos */}
-        <div className="flex flex-wrap justify-center gap-8">
+        {/* Flex container for venture logos with smaller gaps */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4">
           {ventures.map((venture) => (
-            // Each venture is now rendered as a static div with hover scaling
+            // Each venture is rendered in a smaller container so they remain in one line.
             <div
               key={venture.name}
-              className="w-40 h-40 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"
+              className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"
               aria-label={venture.name}
             >
-              <motion.div whileHover={{ scale: 1.1 }} className="w-32 h-32">
+              {/* Inner motion div applies a hover scale effect */}
+              <motion.div whileHover={{ scale: 1.1 }} className="w-16 h-16 md:w-20 md:h-20">
                 <Image
                   src={venture.logo}
                   alt={venture.name}
