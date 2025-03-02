@@ -1,5 +1,6 @@
 "use client";
 
+import Head from "next/head";
 import Hero from "@/components/Landing/Hero";
 import FoodShowcase from "@/components/Landing/Food-Cards/FoodShowcase";
 import StoreSection from "@/components/Landing/StoreSection";
@@ -9,30 +10,50 @@ import OtherVentures from "@/components/Landing/OtherVentures";
 
 export default function Home() {
   return (
-    <div className="w-full bg-mutecolor">
-      {/* Hero Section */}
-      <Hero />
+    <>
+      <Head>
+        <title>Short Trip - Fueling Your Journey</title>
+        <meta
+          name="description"
+          content="Short Trip offers fuel, fresh coffee, and convenience at our one-stop locations. Explore our services, our story, and join our team today."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Open Graph / Facebook */}
+        <meta property="og:title" content="Short Trip - Fueling Your Journey" />
+        <meta
+          property="og:description"
+          content="Short Trip offers fuel, fresh coffee, and convenience at our one-stop locations. Explore our services, our story, and join our team today."
+        />
+        <meta property="og:image" content="https://shorttrip.com/images/logo.png" />
+        <meta property="og:url" content="https://shorttrip.com" />
+        <meta property="og:type" content="website" />
+        {/* Twitter */}
+        <meta name="twitter:title" content="Short Trip - Fueling Your Journey" />
+        <meta
+          name="twitter:description"
+          content="Short Trip offers fuel, fresh coffee, and convenience at our one-stop locations. Explore our services, our story, and join our team today."
+        />
+        <meta name="twitter:image" content="https://shorttrip.com/images/logo.png" /> 
+      </Head>
+      <div className="w-full bg-mutecolor">
+        {/* Hero Section */}
+        <Hero />
 
-      {/* Food Showcase Section */}
-      {/* <motion.div
-        initial={{ opacity: 0, scaleX: 0 }}
-        whileInView={{ opacity: 1, scaleX: 1 }}
-        viewport={{ once: false, amount: 0.4 }}
-      > */}
+        {/* Food Showcase Section */}
         <FoodShowcase />
-      {/* </motion.div> */}
 
-      {/* Store Section */}
-      <StoreSection />
+        {/* Store Section */}
+        <StoreSection />
 
-      {/* Our Story Section */}
-      <OurStory />
+        {/* Our Story Section */}
+        <OurStory />
 
-      {/* Career Section */}
-      <CareerSection />
+        {/* Career Section */}
+        <CareerSection />
 
-      {/* Other Ventures Sections */}
-      <OtherVentures />
-    </div>
+        {/* Other Ventures Section */}
+        <OtherVentures />
+      </div>
+    </>
   );
 }

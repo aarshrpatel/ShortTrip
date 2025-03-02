@@ -1,14 +1,15 @@
 "use client";
+
+import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
 import heroBg from "@/assets/ST110.svg"; // Replace with your hero image path
 
 const Hero = () => {
   return (
     <section className="relative h-[80vh]">
-      {/* Background image */}
+      {/* Background Image */}
       <Image
         src={heroBg}
         alt="Store Image"
@@ -16,10 +17,10 @@ const Hero = () => {
         className="object-cover"
       />
 
-      {/* Semi-transparent overlay */}
+      {/* Semi-transparent Overlay */}
       <div className="absolute inset-0 bg-black opacity-50" />
 
-      {/* Hero content */}
+      {/* Hero Content */}
       <div className="relative z-10 container mx-auto text-center px-4 flex flex-col justify-center h-full">
         <h1 className="text-4xl md:text-6xl font-bold text-white">
           Fuel Your Journey with Short Trip

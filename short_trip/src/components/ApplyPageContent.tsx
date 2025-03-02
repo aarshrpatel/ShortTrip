@@ -5,12 +5,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function ApplyPageContent() {
+  // Retrieve URL query parameters and initialize the router.
   const searchParams = useSearchParams();
   const router = useRouter();
   const jobId = searchParams.get("jobId");
   const [jobTitle, setJobTitle] = useState<string>("");
 
-  // Map jobId to job title (simulate lookup; replace with real API/CMS integration as needed)
+  // Map jobId to a job title (simulate lookup; replace with real API/CMS integration as needed)
   useEffect(() => {
     const jobTitles: Record<string, string> = {
       "1": "Fuel Station Attendant",
@@ -25,11 +26,10 @@ export default function ApplyPageContent() {
     }
   }, [jobId]);
 
-  // Original fields
+  // State for each form field
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  // New fields
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -38,13 +38,16 @@ export default function ApplyPageContent() {
   const [coverLetter, setCoverLetter] = useState("");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
 
+  // Submission status state
   const [submitting, setSubmitting] = useState(false);
   const [status, setStatus] = useState<string>("");
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setStatus("");
+    // Build a FormData object containing all form fields (including file upload)
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
@@ -60,12 +63,14 @@ export default function ApplyPageContent() {
       formData.append("resume", resumeFile);
     }
 
+    // Submit form data to the API route
     const res = await fetch("/api/career/apply", {
       method: "POST",
       body: formData,
     });
     if (res.ok) {
       setStatus("success");
+      // Clear the form fields on success
       setName("");
       setEmail("");
       setPhone("");
@@ -87,13 +92,21 @@ export default function ApplyPageContent() {
   return (
     <div className="min-h-screen bg-mutecolor text-foreground flex flex-col items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-lg p-8 w-full max-w-3xl">
+        {/* Form Header */}
         <h2 className="text-2xl font-bold mb-6 text-center">
           Apply for {jobTitle}
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
-          {/* Basic Info */}
+        {/* Application Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+          encType="multipart/form-data"
+        >
+          {/* Basic Info Fields */}
           <div>
-            <label className="block text-sm font-medium">Name</label>
+            <label className="block text-sm font-medium">
+              Name <span className="text-red">*</span>
+            </label>
             <input
               type="text"
               name="name"
@@ -105,7 +118,9 @@ export default function ApplyPageContent() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Email</label>
+            <label className="block text-sm font-medium">
+              Email <span className="text-red">*</span>
+            </label>
             <input
               type="email"
               name="email"
@@ -117,7 +132,9 @@ export default function ApplyPageContent() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium">Phone</label>
+            <label className="block text-sm font-medium">
+              Phone <span className="text-red">*</span>
+            </label>
             <input
               type="tel"
               name="phone"
@@ -128,9 +145,12 @@ export default function ApplyPageContent() {
               required
             />
           </div>
+
           {/* Address Fields */}
           <div>
-            <label className="block text-sm font-medium">Address</label>
+            <label className="block text-sm font-medium">
+              Address <span className="text-red">*</span>
+            </label>
             <input
               type="text"
               name="address"
@@ -138,11 +158,14 @@ export default function ApplyPageContent() {
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               className="w-full border border-gray-300 rounded-lg p-2"
+              required
             />
           </div>
           <div className="flex space-x-4">
             <div className="w-1/3">
-              <label className="block text-sm font-medium">City</label>
+              <label className="block text-sm font-medium">
+                City <span className="text-red">*</span>
+              </label>
               <input
                 type="text"
                 name="city"
@@ -150,10 +173,13 @@ export default function ApplyPageContent() {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-2"
+                required
               />
             </div>
             <div className="w-1/3">
-              <label className="block text-sm font-medium">State</label>
+              <label className="block text-sm font-medium">
+                State <span className="text-red">*</span>
+              </label>
               <input
                 type="text"
                 name="state"
@@ -161,21 +187,26 @@ export default function ApplyPageContent() {
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-2"
+                required
               />
             </div>
             <div className="w-1/3">
-              <label className="block text-sm font-medium">ZIP Code</label>
+              <label className="block text-sm font-medium">
+                ZIP Code <span className="text-red">*</span>
+              </label>
               <input
                 type="text"
                 name="zip"
-                placeholder="ZIP Code"
+                placeholder="00000"
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
                 className="w-full border border-gray-300 rounded-lg p-2"
+                required
               />
             </div>
           </div>
-          {/* LinkedIn */}
+
+          {/* LinkedIn Field (Optional) */}
           <div>
             <label className="block text-sm font-medium">
               LinkedIn Profile (optional)
@@ -189,9 +220,12 @@ export default function ApplyPageContent() {
               className="w-full border border-gray-300 rounded-lg p-2"
             />
           </div>
-          {/* Cover Letter */}
+
+          {/* Cover Letter Field (Optional) */}
           <div>
-            <label className="block text-sm font-medium">Cover Letter (optional)</label>
+            <label className="block text-sm font-medium">
+              Cover Letter (optional)
+            </label>
             <textarea
               name="coverLetter"
               placeholder="Write your cover letter here..."
@@ -201,9 +235,12 @@ export default function ApplyPageContent() {
               rows={5}
             />
           </div>
-          {/* Resume File Upload */}
+
+          {/* Resume File Upload Field (Required) */}
           <div>
-            <label className="block text-sm font-medium">Resume (PDF, DOC, DOCX)</label>
+            <label className="block text-sm font-medium">
+              Resume (PDF, DOC, DOCX) <span className="text-red">*</span>
+            </label>
             <input
               type="file"
               name="resume"
@@ -217,7 +254,13 @@ export default function ApplyPageContent() {
               required
             />
           </div>
-          {/* Buttons */}
+
+          {/* Legend for Required Fields */}
+          <p className="text-xs text-gray-500">
+            <span className="text-red">*</span> indicates required fields.
+          </p>
+
+          {/* Form Buttons */}
           <div className="flex justify-end space-x-4">
             <Link href="/career">
               <button
@@ -235,13 +278,15 @@ export default function ApplyPageContent() {
               {submitting ? "Submitting..." : "Submit"}
             </button>
           </div>
+
+          {/* Feedback Messages */}
           {status === "success" && (
             <p className="mt-2 text-green-500 text-center">
               Application sent!
             </p>
           )}
           {status === "error" && (
-            <p className="mt-2 text-red-500 text-center">
+            <p className="mt-2 text-red text-center">
               Error sending application. Please try again.
             </p>
           )}
