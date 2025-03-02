@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -21,21 +20,18 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (res.ok) {
-        setStatus("success");
-        setForm({ name: "", email: "", phone: "", message: "" });
-      } else {
-        setStatus("error");
-      }
-    } catch (error) {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    if (res.ok) {
+      setStatus("success");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } else {
       setStatus("error");
     }
+    
   };
 
   return (
