@@ -59,8 +59,8 @@ const Navbar = () => {
           Use "absolute" on mobile so the logo appears over the hero,
           and "fixed" on medium screens and up so it stays at the top.
         */}
-        <div className="absolute md:fixed top-0 left-0 z-50 mx-6 my-5">
-          <Image src={logo} alt="Short Trip Logo" width={80} height={80} />
+        <div className="absolute md:fixed top-0 left-0 z-50 mx-6 my-5 w-16 h-12 md:w-20 md:h-20">
+          <Image src={logo} alt="Short Trip Logo" fill className="object-contain" />
         </div>
       </Link>
 
