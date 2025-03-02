@@ -14,7 +14,7 @@ export default function CareerPageContent({ jobListings }: CareerPageContentProp
   return (
     <div className="min-h-screen bg-mutecolor text-foreground">
       {/* Hero Section */}
-      <section className="relative h-64 md:h-96 flex items-center justify-center">
+      <section className="relative h-72 md:h-96 flex items-center justify-center">
         {/* Background image with overlay */}
         <div
           className="absolute inset-0 bg-cover bg-center"
