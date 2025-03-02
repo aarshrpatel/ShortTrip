@@ -6,15 +6,17 @@ export const locations =
     address: "2414 Old Edisto Dr, Orangeburg, SC 29115",
     phone: "+1 (580) 662-9830",
     hours: "5am - 10pm, Monday - Saturday|7am - 10pm, Sunday",
-    coordinates: { "lat": 33.481213, "lng": -80.8945827 }
+    coordinates: { "lat": 33.481213, "lng": -80.8945827 },
+    services: [ "Convenience Store", "Laundry" ]
   },
   {
     id: 2,
     name: "Short Trip - 614 US-78",
-    address: "614 US-78, Ridgeville, SC 29472\n",
+    address: "614 US-78, Ridgeville, SC 29472",
     phone: "+1 (843) 871-8119",
     hours: "5am - 9pm, Monday - Saturday|7am - 7pm, Sunday",
-    coordinates: { "lat": 33.1038234, "lng": -80.2856752 }
+    coordinates: { "lat": 33.1038234, "lng": -80.2856752 },
+    services: [ "Convenience Store", "Gas Station" ]
   },
   {
     id: 3,
@@ -22,7 +24,8 @@ export const locations =
     address: "3147 State Rd, Ridgeville, SC 29472",
     phone: "+1 (843) 688-5800",
     hours: "5am - 9pm, Monday - Saturday|8am - 8pm, Sunday",
-    coordinates: { "lat": 33.1736603, "lng": -80.2078608 }
+    coordinates: { "lat": 33.1736603, "lng": -80.2078608 },
+    services: [ "Convenience Store", "Gas Station" ]
   },
   {
     id: 4,
@@ -30,7 +33,8 @@ export const locations =
     address: "348 College Park Rd, Ladson, SC 29456",
     phone: "+1 (843) 797-6792",
     hours: "24 hours, 7 days a week",
-    coordinates: { "lat": 33.0005878, "lng": -80.0910086 }
+    coordinates: { "lat": 33.0005878, "lng": -80.0910086 },
+    services: [ "Convenience Store", "Gas Station", "Food" ]
   },
   {
     id: 5,
@@ -38,7 +42,8 @@ export const locations =
     address: "3880 Patriot Pkwy, Sumter, SC 29154",
     phone: "+1 (803) 294-0300",
     hours: "5am - 10pm, Monday - Friday|6am - 10pm, Saturday|7am - 8pm, Sunday",
-    coordinates: { "lat": 33.935857, "lng": -80.441361 }
+    coordinates: { "lat": 33.935857, "lng": -80.441361 },
+    services: [ "Convenience Store", "Gas Station", "Food" ]
   },
   {
     id: 6,
@@ -46,7 +51,8 @@ export const locations =
     address: "101 N U.S. Hwy 52, Moncks Corner, SC 29461",
     phone: "+1 (843) 899-4937",
     hours: "5am - 12am, 7 days a week",
-    coordinates: { "lat": 33.1923882, "lng": -79.9966352 }
+    coordinates: { "lat": 33.1923882, "lng": -79.9966352 },
+    services: [ "Convenience Store", "Gas Station" ]
   },
   {
     id: 7,
@@ -54,7 +60,8 @@ export const locations =
     address: "3272 US-52, Moncks Corner, SC 29461",
     phone: "+1 (843) 761-6775",
     hours: "6am - 9pm, Monday - Friday|8am - 9pm, Saturday|8am - 8pm, Sunday",
-    coordinates: { "lat": 33.0594854, "lng": -80.0346155 }
+    coordinates: { "lat": 33.0594854, "lng": -80.0346155 },
+    services: [ "Convenience Store", "Gas Station", "Liquor" ]
   },
   {
     id: 8,
@@ -62,7 +69,8 @@ export const locations =
     address: "10647 US-78, Summerville, SC 29483",
     phone: "(000) 000-0000",
     hours: "5am - 10pm, 7 days a week",
-    coordinates: { "lat": 33.0185184, "lng": -80.1526618 }
+    coordinates: { "lat": 33.0185184, "lng": -80.1526618 },
+    
   },
   {
     id: 9,
@@ -70,7 +78,8 @@ export const locations =
     address: "320 S Irby St, Florence, SC 29501",
     phone: "+1 (843) 665-6354",
     hours: "6am - 10pm, 7 days a week",
-    coordinates: { "lat": 34.1922148, "lng": -79.7673797 }
+    coordinates: { "lat": 34.1922148, "lng": -79.7673797 },
+    services: [ "Convenience Store", "Gas Station" ]
   },
   {
     id: 10,
@@ -78,7 +87,8 @@ export const locations =
     address: "117 S Boundary St, Manning, SC 29102",
     phone: "+1 (803) 825-4813",
     hours: "7am - 8pm, 7 days a week",
-    coordinates: { "lat": 33.6931304, "lng": -80.2141568 }
+    coordinates: { "lat": 33.6931304, "lng": -80.2141568 },
+    services: [ "Convenience Store", "Gas Station" ]
   },
   {
     id: 11,
@@ -86,6 +96,16 @@ export const locations =
     address: "3022 Old Hwy 52, Moncks Corner, SC 29461",
     phone: "+1 (843) 761-6054",
     hours: "6am - 10pm, Monday - Saturday|7am - 10pm, Sunday",
-    coordinates: { "lat": 33.0684275, "lng": -80.0235393 }
+    coordinates: { "lat": 33.0684275, "lng": -80.0235393 },
+    services: [ "Convenience Store" ]
+  },
+  {
+    id: 12,
+    name: "Short Trip - 3995 North Rd",
+    address: "3995 North Rd, Orangeburg, SC 29118",
+    phone: "+1 (803) 388-8881",
+    hours: "9am - 7pm, Monday - Saturday|(Closed Sunday)",
+    coordinates: { "lat": 33.54356, "lng": -80.91245 },
+    services: [ "Liquor" ]
   }
 ];

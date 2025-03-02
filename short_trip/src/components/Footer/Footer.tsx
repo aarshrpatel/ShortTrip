@@ -2,10 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
+import { FiFacebook, FiInstagram, FiLinkedin } from "react-icons/fi"; 
 import logo from "@/assets/logo.png";
-import facebook from "@/assets/facebook-icon.png";
-import instagram from "@/assets/instagram-icon.png";
-import linkedin from "@/assets/linkedin-icon.png";
 import Link from "next/link";
 
 const Footer = () => {
@@ -42,13 +40,13 @@ const Footer = () => {
       {/* Social Media Icons */}
       <div className="flex space-x-4 text-xs">
         <Link href="https://www.facebook.com/shorttripstores/" target="_blank">
-          <Image src={facebook} alt="Facebook Logo" className="w-8" />
+          <FiFacebook className="scale-150" />
         </Link>
         <Link href="https://www.instagram.com/shorttripstore/" target="_blank">
-          <Image src={instagram} alt="Instagram Logo" className="w-8" />
+          <FiInstagram className="scale-150" />
         </Link>
         <Link href="https://www.linkedin.com/company/short-trip-stores/" target="_blank">
-          <Image src={linkedin} alt="LinkedIn Logo" className="w-8" />
+          <FiLinkedin className="scale-150" />
         </Link>
       </div>
 

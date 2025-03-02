@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {JSX, useEffect, useState } from "react";
 import { FiClock, FiPhone, FiMapPin, FiSearch } from "react-icons/fi";
+import { MdLocalConvenienceStore, MdLocalLaundryService, MdLocalGasStation, MdLiquor, MdFastfood } from "react-icons/md";
+import { ShoppingBasket } from 'lucide-react';
 import { motion } from "framer-motion";
 import { Card, Form } from "react-bootstrap";
 import dynamic from "next/dynamic";
@@ -11,6 +13,14 @@ import { locations } from "./data/locations";
 const LocationsMap = dynamic(() => import("@/components/Map/LocationsMap"), {
   ssr: false,
 });
+
+const serviceIconMap: { [key: string]: JSX.Element } = {
+  "Convenience Store": <ShoppingBasket />,
+  "Laundry": <MdLocalLaundryService />,
+  "Gas Station": <MdLocalGasStation />,
+  "Liquor": <MdLiquor />,
+  "Food": <MdFastfood />,
+};
 
 /** Haversine formula to calculate distance between two coordinates */
 function haversineDistance(lat1: number, lng1: number, lat2: number, lng2: number) {
@@ -151,6 +161,15 @@ export default function Locations() {
                 <Card.Body className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-semibold">{location.name}</h2>
+                    {location.services && location.services.length > 0 && (
+                      <div className="flex items-center space-x-2 text-xl">
+                        {location.services.map((service, idx) => (
+                          <span key={idx}>
+                          {serviceIconMap[service]}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className="flex items-start mb-2 text-sm">
                     <FiMapPin className="w-5 h-5 mr-2 text-red" />
@@ -176,7 +195,9 @@ export default function Locations() {
 
         {/* Map */}
         <motion.div
-          className="order-2 md:order-2 w-full h-full rounded-lg shadow map-wrapper"
+          className="order-2 md:order-2 w-full 
+               h-[300px] md:h-full 
+               rounded-lg shadow map-wrapper"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
