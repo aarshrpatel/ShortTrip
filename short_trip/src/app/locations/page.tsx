@@ -2,7 +2,7 @@
 
 import React, {JSX, useEffect, useState } from "react";
 import { FiClock, FiPhone, FiMapPin, FiSearch } from "react-icons/fi";
-import { MdLocalConvenienceStore, MdLocalLaundryService, MdLocalGasStation, MdLiquor, MdFastfood } from "react-icons/md";
+import { MdLocalLaundryService, MdLocalGasStation, MdLiquor, MdFastfood } from "react-icons/md";
 import { ShoppingBasket } from 'lucide-react';
 import { motion } from "framer-motion";
 import { Card, Form } from "react-bootstrap";
