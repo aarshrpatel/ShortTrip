@@ -7,7 +7,7 @@ export const locations =
     phone: "+1 (580) 662-9830",
     hours: "5am - 10pm, Monday - Saturday|7am - 10pm, Sunday",
     coordinates: { "lat": 33.481213, "lng": -80.8945827 },
-    services: [ "Convenience Store", "Laundry" ]
+    services: [ "Convenience Store", "Laundry", "Car Wash" ]
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ export const locations =
     phone: "+1 (843) 688-5800",
     hours: "5am - 9pm, Monday - Saturday|8am - 8pm, Sunday",
     coordinates: { "lat": 33.1736603, "lng": -80.2078608 },
-    services: [ "Convenience Store", "Gas Station" ]
+    services: [ "Convenience Store", "Gas Station", "Food" ]
   },
   {
     id: 4,
@@ -70,6 +70,7 @@ export const locations =
     phone: "(000) 000-0000",
     hours: "5am - 10pm, 7 days a week",
     coordinates: { "lat": 33.0185184, "lng": -80.1526618 },
+    services: [ "Convenience Store" ]
     
   },
   {
@@ -88,7 +89,7 @@ export const locations =
     phone: "+1 (803) 825-4813",
     hours: "7am - 8pm, 7 days a week",
     coordinates: { "lat": 33.6931304, "lng": -80.2141568 },
-    services: [ "Convenience Store", "Gas Station" ]
+    services: [ "Convenience Store" ]
   },
   {
     id: 11,
@@ -106,6 +107,15 @@ export const locations =
     phone: "+1 (803) 388-8881",
     hours: "9am - 7pm, Monday - Saturday|(Closed Sunday)",
     coordinates: { "lat": 33.54356, "lng": -80.91245 },
-    services: [ "Liquor" ]
+    services: [ "Convenience Store", "Gas Station", "Liquor" ]
+  },
+  {
+    id: 13,
+    name: "Short Trip Laundromat - 1010 Old Hwy 52",
+    address: "1010 Old Hwy 52 Unit F, Moncks Corner, SC 29461",
+    phone: "+1 (843) 899-5344",
+    hours: "7am - 10pm, 7 days a week",
+    coordinates: { "lat": 33.184889, "lng": -80.000815},
+    services: [ "Laundry" ]
   }
 ];
