@@ -38,17 +38,24 @@ const Footer = () => {
       </div>
 
       {/* Social Media Icons */}
-      <div className="flex space-x-4 text-xs">
+      <div className="flex space-x-6 text-xs">
         <Link href="https://www.facebook.com/shorttripstores/" target="_blank">
-          <FiFacebook className="scale-150" />
+          <FiFacebook className="scale-[2]" />
         </Link>
         <Link href="https://www.instagram.com/shorttripstore/" target="_blank">
-          <FiInstagram className="scale-150" />
+          <FiInstagram className="scale-[2]" />
         </Link>
         <Link href="https://www.linkedin.com/company/short-trip-stores/" target="_blank">
-          <FiLinkedin className="scale-150" />
+          <FiLinkedin className="scale-[2]" />
         </Link>
       </div>
+
+      {/* Terms and Conditions and Privacy Policy */}
+      {/* <div className="flex space-x-4 text-xs">
+        <Link href={termsandconditions} target="_blank">Terms & Conditions</Link>
+        <Link href={PrivacyPolicy} target="_blank">Privacy Policy</Link>
+      </div> */}
+
 
       {/* Copyright */}
       <p className="text-center text-gray-500 text-xs">
