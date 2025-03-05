@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { Menu, X} from "lucide-react";
 import logo from "@/assets/logo.png";
 import { usePathname } from "next/navigation";
 
@@ -13,7 +13,8 @@ const Navbar = () => {
   const pathname = usePathname();
   // Refs for the nav container and the sliding highlight element
   const navRef = useRef<HTMLDivElement>(null);
-  const highlightRef = useRef<HTMLDivElement>(null);
+  const [highlightStyle, setHighlightStyle] = useState({ left: "0px", width: "0px" });
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
   // Define the navigation items with label and corresponding href
   const navItems = [
@@ -26,30 +27,26 @@ const Navbar = () => {
 
   // Toggle mobile menu open/close state
   const toggleMenu = () => {
-    setIsOpen((prev) => !prev);
+    setIsOpen(!isOpen);
   };
 
   // Update the position and width of the sliding highlight element using refs
-  const updateHighlight = (element: HTMLElement | null) => {
-    if (element && highlightRef.current) {
-      highlightRef.current.style.left = `${element.offsetLeft}px`;
-      highlightRef.current.style.width = `${element.offsetWidth}px`;
+  const updateHighlight = (element: HTMLElement | null, href: string | null = null) => {
+    if (element) {
+      setHighlightStyle({
+        left: `${element.offsetLeft}px`, // Add padding to center highlight
+        width: `${element.offsetWidth}px`, // Reduce width slightly
+      });
+      setHoveredLink(href); // Track the hovered link
     }
   };
 
   // When pathname changes, update the highlight to the active link
   useEffect(() => {
-    const activeLink = navRef.current?.querySelector(
-      `a[data-active="true"]`
-    ) as HTMLElement;
-    if (activeLink) {
-      updateHighlight(activeLink);
-    }
+    // Set the highlight to the active link on page load
+    const activeLink = navRef.current?.querySelector(`a[data-active="true"]`);
+    if (activeLink) updateHighlight(activeLink as HTMLElement, pathname);
   }, [pathname]);
-
-  // Set the background color of the navbar: set to "red" or "white" as needed.
-  // This variable is used to conditionally style the links.
-  const bgColor = "red"; // Change to "white" if your navbar background is white
 
   return (
     <header>
@@ -59,7 +56,7 @@ const Navbar = () => {
           Use "absolute" on mobile so the logo appears over the hero,
           and "fixed" on medium screens and up so it stays at the top.
         */}
-        <div className="absolute md:fixed top-0 left-0 z-50 mx-6 my-5 w-16 h-12 md:w-20 md:h-20">
+        <div className="absolute scale-125 md:fixed top-6 left-10 z-50 w-20 h-16 md:w-20 md:h-20">
           <Image src={logo} alt="Short Trip Logo" fill className="object-contain" />
         </div>
       </Link>
@@ -72,12 +69,12 @@ const Navbar = () => {
         {/* Desktop Navigation Container (visible on md+) */}
         <div
           ref={navRef}
-          className="hidden md:flex font-bold md:relative top-4 left-1/2 transform -translate-x-1/2 bg-mutecolor rounded-full shadow-lg gap-6 text-lg relative"
+          className="hidden md:flex font-bold md:relative top-8 left-1/2 transform -translate-x-1/2 bg-mutecolor rounded-full shadow-lg gap-6 text-lg relative"
         >
           {/* Highlight Sliding Background */}
           <div
-            ref={highlightRef}
-            className="absolute top-1/2 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
+            className="absolute top-1/2 left-0 h-[70%] bg-red rounded-full transition-all duration-300 transform -translate-y-1/2"
+            style={{ ...highlightStyle, position: "absolute" }}
           ></div>
 
           {navItems.map((item) => (
@@ -87,20 +84,21 @@ const Navbar = () => {
               href={item.href}
               // Active link: always white; inactive:
               // if bgColor is red, use white; if bgColor is white, use black.
-              className={`relative px-4 m-2 text-lg font-medium transition-colors duration-300 z-10 ${
-                pathname === item.href
-                  ? "text-white hover:text-white"
-                  : bgColor === "red"
-                  ? "text-black hover:text-white"
-                  : "text-black hover:text-black"
+              className={`relative px-4 m-2 text-lg font-medium transition-all duration-300 z-10 content-center text-center ${
+                hoveredLink === item.href
+                  ? "text-white" // Make hovered link text white
+                  : pathname === item.href && hoveredLink
+                    ? "text-foreground" // Change current page link text back to black when hovering elsewhere
+                    : pathname === item.href
+                      ? "text-white" // Keep active page text white when no hovering
+                      : "text-foreground hover:text-white"
               }`}
               data-active={pathname === item.href}
-              onMouseEnter={(e) => updateHighlight(e.currentTarget)}
+              onMouseEnter={(e) => updateHighlight(e.currentTarget, item.href)}
               onMouseLeave={() => {
-                const activeLink = navRef.current?.querySelector(
-                  `a[data-active="true"]`
-                ) as HTMLElement;
-                if (activeLink) updateHighlight(activeLink);
+                setHoveredLink(null);
+                const activeLink = navRef.current?.querySelector(`a[data-active="true"]`);
+                if (activeLink) updateHighlight(activeLink as HTMLElement, pathname);
               }}
             >
               {item.label}
