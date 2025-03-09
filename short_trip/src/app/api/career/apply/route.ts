@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     const mailOptions = {
       from: email,
-      to: process.env.ADMIN_EMAIL,
+      to: process.env.HR_EMAIL,
       subject: `New Application for ${jobTitle}`,
       text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}\nCity: ${city}\nState: ${state}\nZIP: ${zip}\nLinkedIn: ${linkedin}\n\nCover Letter:\n${coverLetter}`,
       attachments,
