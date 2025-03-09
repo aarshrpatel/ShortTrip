@@ -46,7 +46,7 @@ export default function TermsAndConditions() {
               Types of SMS Communications:
             </h2>
             <p className="text-gray-600 mb-2">
-              If you have consented to receive text messages from ShortTrip, you may receive messages related to the following:
+              If you have consented to receive text messages from Short Trip, you may receive messages related to the following:
             </p>
             <ul className="list-disc list-inside text-gray-600 mb-2">
               <li>Appointment reminders</li>
@@ -55,7 +55,7 @@ export default function TermsAndConditions() {
               <li>Promotions or offers (if applicable)</li>
             </ul>
             <p className="text-gray-600">
-              Example: "Hello, this is a friendly reminder of your upcoming appointment with Dr. [Name] at [Date] at [Time]. You can reply STOP to opt out of SMS messaging from (Brand Name) at any time.”
+              Example: &quot;Hello, this is a friendly reminder of your upcoming appointment with Dr. [Name] at [Date] at [Time]. You can reply STOP to opt out of SMS messaging from (Brand Name) at any time.&quot;
             </p>
           </section>
 
@@ -68,7 +68,7 @@ export default function TermsAndConditions() {
               Message frequency may vary depending on the type of communication. For example, you may receive up to [X] SMS messages per week related to your appointments or billing.
             </p>
             <p className="text-gray-600">
-              Example: “Message frequency may vary. You may receive up to 2 SMS messages per week regarding your appointments or account status.”
+              Example: &quot;Message frequency may vary. You may receive up to 2 SMS messages per week regarding your appointments or account status.&quot;
             </p>
           </section>
 
@@ -78,7 +78,7 @@ export default function TermsAndConditions() {
               Potential Fees for SMS Messaging:
             </h2>
             <p className="text-gray-600">
-              Please note that standard message and data rates may apply, depending on your carrier’s pricing plan. These fees may vary if the message is sent domestically or internationally.
+              Please note that standard message and data rates may apply, depending on your carrier&apos;s pricing plan. These fees may vary if the message is sent domestically or internationally.
             </p>
           </section>
 
@@ -103,7 +103,7 @@ export default function TermsAndConditions() {
               Opt-Out:
             </h2>
             <p className="text-gray-600">
-              You can opt out of receiving SMS messages at any time. To do so, simply reply “STOP” to any SMS message you receive. Alternatively, you can contact us directly to request removal from our messaging list.
+              You can opt out of receiving SMS messages at any time. To do so, simply reply &quot;STOP&quot; to any SMS message you receive. Alternatively, you can contact us directly to request removal from our messaging list.
             </p>
           </section>
 
@@ -133,7 +133,7 @@ export default function TermsAndConditions() {
               Standard Messaging Disclosures:
             </h2>
             <p className="text-gray-600">
-              Message and data rates may apply. You can opt out at any time by texting “STOP”. For assistance, text “HELP” or visit our Privacy Policy and Terms and Conditions pages. Message frequency may vary.
+              Message and data rates may apply. You can opt out at any time by texting &quot;STOP&quot;. For assistance, text &quot;HELP&quot; or visit our Privacy Policy and Terms and Conditions pages. Message frequency may vary.
             </p>
           </section>
         </div>
