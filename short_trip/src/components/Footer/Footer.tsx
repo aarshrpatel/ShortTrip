@@ -51,11 +51,14 @@ const Footer = () => {
       </div>
 
       {/* Terms and Conditions and Privacy Policy */}
-      {/* <div className="flex space-x-4 text-xs">
-        <Link href={termsandconditions} target="_blank">Terms & Conditions</Link>
-        <Link href={PrivacyPolicy} target="_blank">Privacy Policy</Link>
-      </div> */}
-
+      <div className="flex space-x-4 text-xs">
+        <Link href="/terms" className="hover:text-red hover:underline transition-colors">
+          Terms & Conditions
+        </Link>
+        <Link href="/privacy" className="hover:text-red hover:underline transition-colors">
+          Privacy Policy
+        </Link>
+      </div>
 
       {/* Copyright */}
       <p className="text-center text-gray-500 text-xs">
