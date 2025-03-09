@@ -58,7 +58,8 @@ export default function PrivacyPolicy() {
         <p className="mb-4 text-gray-600">
           We do not sell or share your personal information with third parties for their marketing purposes. We may share your information with trusted partners who assist us in operating our website, provided they agree to keep your information confidential.
         </p>
-
+        <br />
+        <p className="mb-4 text-gray-600">SMS Opt-in and phone number collected for SMS communications purposes will not be shared with any third party and affiliates for marketing purposes.</p>
         <h2 className="text-2xl font-semibold text-gray-700 mt-6 mb-2">Security</h2>
         <p className="mb-4 text-gray-600">
           We implement various security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.
